@@ -1,4 +1,4 @@
-namespace PlayerInteraction
+namespace PlayerInteractionLogic
 {
     public interface IInteractable
     {

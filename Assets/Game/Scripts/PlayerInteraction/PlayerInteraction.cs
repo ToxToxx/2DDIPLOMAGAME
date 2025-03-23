@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace PlayerInteraction
+namespace PlayerInteractionLogic
 {
     public class PlayerInteraction : MonoBehaviour
     {
@@ -11,7 +11,6 @@ namespace PlayerInteraction
         {
             if (InputManager.InteractionWasPressed)
             {
-                Debug.Log("Interacting");
                 Interact();
             }
         }

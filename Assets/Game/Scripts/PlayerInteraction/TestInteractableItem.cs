@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace PlayerInteraction
+namespace PlayerInteractionLogic
 {
     public class TestInteractableItem : MonoBehaviour, IInteractable
     {
