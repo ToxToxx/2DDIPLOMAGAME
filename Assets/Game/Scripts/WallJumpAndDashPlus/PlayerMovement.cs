@@ -87,6 +87,11 @@ namespace PlayerMovementRefactoring
         [HideInInspector] public float DashFastFallTime;
         [HideInInspector] public float DashFastFallReleaseSpeed;
 
+        [Header("Ability Unlocks")]
+        [SerializeField] private bool canWallSlide = false; 
+        [SerializeField] private bool canWallJump = false; 
+        [SerializeField] private bool canDash = false;
+
         private void Awake()
         {
             InitializeComponents();
@@ -115,9 +120,21 @@ namespace PlayerMovementRefactoring
             _timerController.CountTimers();
             _jumpHandler.JumpChecks();
             _landFallController.LandCheck();
-            _wallSlideController.WallSlideCheck();
-            _wallJumpController.WallJumpCheck();
-            _dashController.DashCheck();
+
+            if (canWallSlide)
+            {
+                _wallSlideController.WallSlideCheck();
+            }
+
+            if (canWallJump)
+            {
+                _wallJumpController.WallJumpCheck();
+            }
+
+            if (canDash)
+            {
+                _dashController.DashCheck();
+            };
         }
 
         private void FixedUpdate()
