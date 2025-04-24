@@ -1,8 +1,10 @@
+// === PlayerMovementModel.cs ===
 using UnityEngine;
 
 namespace PlayerMovementLogic
 {
-    public class PlayerMovement : MonoBehaviour
+    [System.Serializable]
+    public class PlayerMovementModel
     {
         [Header("References")]
         public PlayerMovementStats MovementStats;
@@ -20,7 +22,7 @@ namespace PlayerMovementLogic
         private CollisionChecksController _collisionChecksController;
         private TimerController _timerController;
 
-        [Header ("Variables")]
+        [Header("Variables")]
         // movement variables
         [HideInInspector] public float HorizontalVelocity;
         public bool IsFacingRight = true;
@@ -87,107 +89,12 @@ namespace PlayerMovementLogic
         [HideInInspector] public float DashFastFallTime;
         [HideInInspector] public float DashFastFallReleaseSpeed;
 
+
+        // Ability unlocks
         [Header("Ability Unlocks")]
-        [SerializeField] private bool canWallSlide = false; 
-        [SerializeField] private bool canWallJump = false; 
-        [SerializeField] private bool canDash = false;
-
-        private void Awake()
-        {
-            InitializeComponents();
-            InitializeControllers();
-        }
-
-        private void InitializeComponents()
-        {
-            _playerRigidbody = GetComponent<Rigidbody2D>();
-        }
-
-        private void InitializeControllers()
-        {
-            _groundMovement = new GroundMovement(this);
-            _jumpHandler = new JumpHandler(this);
-            _landFallController = new LandFallController(this);
-            _wallSlideController = new WallSlideController(this);
-            _wallJumpController = new WallJumpController(this);
-            _dashController = new DashController(this);
-            _collisionChecksController = new CollisionChecksController(this);
-            _timerController = new TimerController(this, _wallJumpController);
-        }
-
-        private void Update()
-        {
-            _timerController.CountTimers();
-            _jumpHandler.JumpChecks();
-            _landFallController.LandCheck();
-
-            if (canWallSlide)
-            {
-                _wallSlideController.WallSlideCheck();
-            }
-
-            if (canWallJump)
-            {
-                _wallJumpController.WallJumpCheck();
-            }
-
-            if (canDash)
-            {
-                _dashController.DashCheck();
-            };
-        }
-
-        private void FixedUpdate()
-        {
-            _collisionChecksController.CollisionChecks();
-            _jumpHandler.Jump();
-            _landFallController.Fall();
-            _wallSlideController.WallSlide();
-            _wallJumpController.WallJump();
-            _dashController.Dash();
-
-            ApplyMovement();
-            ApplyVelocity();
-        }
-
-        private void ApplyMovement()
-        {
-            if (IsGrounded)
-            {
-                _groundMovement.Move(MovementStats.GroundAcceleration, MovementStats.GroundDeceleration, InputManager.Movement);
-            }
-            else
-            {
-                float acceleration = UseWallJumpMoveStats ? MovementStats.WallJumpMoveAceleration : MovementStats.AirAcceleration;
-                float deceleration = UseWallJumpMoveStats ? MovementStats.WallJumpMoveDeceleration : MovementStats.AirDeceleration;
-                _groundMovement.Move(acceleration, deceleration, InputManager.Movement);
-            }
-        }
-
-        public void TurnCheck(Vector2 moveInput)
-        {
-            if (IsFacingRight && moveInput.x < 0)
-            {
-                Turn(false);
-            }
-            else if (!IsFacingRight && moveInput.x > 0)
-            {
-                Turn(true);
-            }
-        }
-
-        private void Turn(bool turnRight)
-        {
-            IsFacingRight = turnRight;
-            transform.Rotate(0f, turnRight ? 180f : -180f, 0f);
-        }
-
-        public void ApplyVelocity()
-        {
-            float maxFallSpeed = IsDashing ? -50f : -MovementStats.MaxFallSpeed;
-            VerticalVelocity = Mathf.Clamp(VerticalVelocity, maxFallSpeed, 50f);
-            _playerRigidbody.linearVelocity = new Vector2(HorizontalVelocity, VerticalVelocity);
-        }
+        public bool CanWallSlide;
+        public bool CanWallJump;
+        public bool CanDash;
 
         public void ResetDashValues()
         {
@@ -221,7 +128,6 @@ namespace PlayerMovementLogic
             FastFallTime = 0f;
             IsPastApexThreshold = false;
         }
-
         public void StopWallSlide()
         {
             if (IsWallSliding)
@@ -233,5 +139,3 @@ namespace PlayerMovementLogic
         }
     }
 }
-
-
