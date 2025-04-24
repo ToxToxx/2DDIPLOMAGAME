@@ -24,70 +24,71 @@ namespace PlayerMovementLogic
 
         [Header("Variables")]
         // movement variables
-        [HideInInspector] public float HorizontalVelocity;
-        public bool IsFacingRight = true;
+        public float HorizontalVelocity { get; set; }
+        public bool IsFacingRight { get; set; } = true;
 
         //collision check variables
-        [HideInInspector] public RaycastHit2D GroundHit;
-        [HideInInspector] public RaycastHit2D HeadHit;
-        public bool IsGrounded;
-        [HideInInspector] public bool BumpedHead;
+        public RaycastHit2D GroundHit { get; set; }
+        public RaycastHit2D HeadHit { get; set; }
+        public bool IsGrounded { get; set; }
+        public bool BumpedHead { get; set; }
 
         //wall collision check variables
-        [HideInInspector] public RaycastHit2D WallHit;
-        [HideInInspector] public RaycastHit2D LastWallHit;
-        public bool IsTouchingWall;
+        public RaycastHit2D WallHit { get; set; }
+        public RaycastHit2D LastWallHit { get; set; }
+        public bool IsTouchingWall { get; set; }
 
         //jump variables
-        [HideInInspector] public float VerticalVelocity;
-        [HideInInspector] public bool IsJumping;
-        [HideInInspector] public bool IsFastFalling;
-        [HideInInspector] public bool IsFalling;
-        [HideInInspector] public float FastFallTime;
-        [HideInInspector] public float FastFallReleaseSpeed;
-        [HideInInspector] public int NumberOfJumpsUsed;
+        public float VerticalVelocity { get; set; }
+        public bool IsJumping { get; set; }
+        public bool IsFastFalling { get; set; }
+        public bool IsFalling { get; set; }
+        public float FastFallTime { get; set; }
+        public float FastFallReleaseSpeed { get; set; }
+        public int NumberOfJumpsUsed { get; set; }
 
         //apex variables
-        [HideInInspector] public float ApexPoint;
-        [HideInInspector] public float TimePastApexThreshold;
-        [HideInInspector] public bool IsPastApexThreshold;
+        public float ApexPoint { get; set; }
+        public float TimePastApexThreshold { get; set; }
+        public bool IsPastApexThreshold { get; set; }
 
         //jump buffer vars
-        [HideInInspector] public float JumpBufferTimer;
-        [HideInInspector] public bool JumpReleasedDuringBufferTimer;
+        public float JumpBufferTimer { get; set; }
+        public bool JumpReleasedDuringBufferTimer { get; set; }
 
         //coyote time vars
-        [HideInInspector] public float CoyoteTimer;
+        public float CoyoteTimer { get; set; }
 
         //wall slide
-        public bool IsWallSliding;
-        [HideInInspector] public bool IsWallSlideFalling;
+        public bool IsWallSliding { get; set; }
+        public bool IsWallSlideFalling { get; set; }
 
         //wall jump
-        [HideInInspector] public bool UseWallJumpMoveStats;
-        public bool IsWallJumping;
-        [HideInInspector] public float WallJumpTime;
-        [HideInInspector] public bool IsWallJumpFastFalling;
-        [HideInInspector] public bool IsWallJumpFalling;
-        [HideInInspector] public float WallJUmpFastFallTime;
-        [HideInInspector] public float WallJumpFastFallReleaseSpeed;
+        public bool UseWallJumpMoveStats { get; set; }
+        public bool IsWallJumping { get; set; }
+        public float WallJumpTime { get; set; }
+        public bool IsWallJumpFastFalling { get; set; }
+        public bool IsWallJumpFalling { get; set; }
+        public float WallJumpFastFallTime { get; set; }
+        public float WallJumpFastFallReleaseSpeed { get; set; }
 
-        [HideInInspector] public float WallJumpPostBufferTimer;
+        public float WallJumpPostBufferTimer { get; set; }
 
-        [HideInInspector] public float WallJumpApexPoint;
-        [HideInInspector] public float TimePastWallJumpApexThreshold;
-        [HideInInspector] public bool IsPastWallJumpApexThreshold;
+        public float WallJumpApexPoint { get; set; }
+        public float TimePastWallJumpApexThreshold { get; set; }
+        public bool IsPastWallJumpApexThreshold { get; set; }
+
 
         //dash vars
-        public bool IsDashing;
-        public bool IsAirDashing;
-        [HideInInspector] public float DashTimer;
-        [HideInInspector] public float DashOnGroundTimer;
-        [HideInInspector] public int NumberOfDashesUsed;
-        [HideInInspector] public Vector2 DashDirection;
-        [HideInInspector] public bool IsDashFastFalling;
-        [HideInInspector] public float DashFastFallTime;
-        [HideInInspector] public float DashFastFallReleaseSpeed;
+        public bool IsDashing { get; set; }
+        public bool IsAirDashing { get; set; }
+        public float DashTimer { get; set; }
+        public float DashOnGroundTimer { get; set; }
+        public int NumberOfDashesUsed { get; set; }
+        public Vector2 DashDirection { get; set; }
+        public bool IsDashFastFalling { get; set; }
+        public float DashFastFallTime { get; set; }
+        public float DashFastFallReleaseSpeed { get; set; }
 
 
         // Ability unlocks

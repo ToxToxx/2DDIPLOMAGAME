@@ -29,7 +29,7 @@ namespace PlayerMovementLogic
                     {
                         _model.IsPastWallJumpApexThreshold = false;
                         _model.IsWallJumpFastFalling = true;
-                        _model.WallJUmpFastFallTime = _model.MovementStats.TimeForUpwardsCancel;
+                        _model.WallJumpFastFallTime = _model.MovementStats.TimeForUpwardsCancel;
 
                         _model.VerticalVelocity = 0F;
                     }
@@ -148,16 +148,16 @@ namespace PlayerMovementLogic
             // Handle wall jump cut time
             if (_model.IsWallJumpFastFalling)
             {
-                if (_model.WallJUmpFastFallTime >= _model.MovementStats.TimeForUpwardsCancel)
+                if (_model.WallJumpFastFallTime >= _model.MovementStats.TimeForUpwardsCancel)
                 {
                     _model.VerticalVelocity += _model.MovementStats.WallJumpGravity * _model.MovementStats.WallJumpGravityOnReleaseMultiplier * Time.fixedDeltaTime;
                 }
-                else if (_model.WallJUmpFastFallTime < _model.MovementStats.TimeForUpwardsCancel)
+                else if (_model.WallJumpFastFallTime < _model.MovementStats.TimeForUpwardsCancel)
                 {
-                    _model.VerticalVelocity = Mathf.Lerp(_model.WallJumpFastFallReleaseSpeed, 0f, (_model.WallJUmpFastFallTime / _model.MovementStats.TimeForUpwardsCancel));
+                    _model.VerticalVelocity = Mathf.Lerp(_model.WallJumpFastFallReleaseSpeed, 0f, (_model.WallJumpFastFallTime / _model.MovementStats.TimeForUpwardsCancel));
                 }
 
-                _model.WallJUmpFastFallTime += Time.fixedDeltaTime;
+                _model.WallJumpFastFallTime += Time.fixedDeltaTime;
             }
         }
 
