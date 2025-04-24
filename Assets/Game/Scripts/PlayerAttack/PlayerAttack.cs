@@ -1,16 +1,15 @@
-using UnityEngine;
+using Zenject;
 
 namespace PlayerAttackLogic
 {
-    public class PlayerAttack : MonoBehaviour
+    public class PlayerAttack : ITickable
     {
-        private void Update()
+        public void Tick()
         {
             if (InputManager.AttackWasPressed)
             {
-                Debug.Log("Атака выполнена!");
+                UnityEngine.Debug.Log("Атака выполнена!");
             }
         }
     }
 }
-

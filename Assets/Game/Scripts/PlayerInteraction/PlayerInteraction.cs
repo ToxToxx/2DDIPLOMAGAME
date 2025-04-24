@@ -1,13 +1,22 @@
 using UnityEngine;
+using Zenject;
 
 namespace PlayerInteractionLogic
 {
-    public class PlayerInteraction : MonoBehaviour
+    public class PlayerInteraction : ITickable
     {
-        [SerializeField] private float _interactionRadius = 1.5f; 
-        [SerializeField] private LayerMask _interactableLayer;  
+        private readonly Transform _transform;
+        private readonly float _interactionRadius;
+        private readonly LayerMask _interactableLayer;
 
-        private void Update()
+        public PlayerInteraction(Transform transform, float interactionRadius, LayerMask interactableLayer)
+        {
+            _transform = transform;
+            _interactionRadius = interactionRadius;
+            _interactableLayer = interactableLayer;
+        }
+
+        public void Tick()
         {
             if (InputManager.InteractionWasPressed)
             {
@@ -17,12 +26,12 @@ namespace PlayerInteractionLogic
 
         private void Interact()
         {
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _interactionRadius, _interactableLayer);
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(_transform.position, _interactionRadius, _interactableLayer);
             foreach (Collider2D collider in colliders)
             {
                 if (collider.TryGetComponent<IInteractable>(out var interactable))
                 {
-                    interactable.Interact(); 
+                    interactable.Interact();
                 }
             }
         }

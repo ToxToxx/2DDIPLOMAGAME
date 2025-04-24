@@ -1374,8 +1374,6 @@ GameObject:
   - component: {fileID: 1023734413}
   - component: {fileID: 1023734412}
   - component: {fileID: 1023734414}
-  - component: {fileID: 1023734416}
-  - component: {fileID: 1023734417}
   - component: {fileID: 1023734418}
   m_Layer: 0
   m_Name: Player
@@ -1483,34 +1481,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &1023734416
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1023734411}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0a47cbef4b57ea4898ed4da82e8bf85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interactionRadius: 1.5
-  _interactableLayer:
-    serializedVersion: 2
-    m_Bits: 128
---- !u!114 &1023734417
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1023734411}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c71f19df053ce540b4ae69de76e522b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1023734418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1530,6 +1500,10 @@ MonoBehaviour:
     CanWallSlide: 1
     CanWallJump: 1
     CanDash: 1
+  _interactionRadius: 1.5
+  _interactableLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &1105187982
 GameObject:
   m_ObjectHideFlags: 0
