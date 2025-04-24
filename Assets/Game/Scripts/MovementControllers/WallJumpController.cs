@@ -6,11 +6,13 @@ namespace PlayerMovementLogic
     {
         private readonly PlayerMovementModel _model;
         private readonly PlayerMovementController _controller;
+        private readonly Transform _transform;
 
-        public WallJumpController(PlayerMovementModel model, PlayerMovementController controller)
+        public WallJumpController(PlayerMovementModel model, PlayerMovementController controller, Transform transform)
         {
             _model = model;
             _controller = controller;
+            _transform = transform;
         }
 
         public void WallJumpCheck()
@@ -31,7 +33,7 @@ namespace PlayerMovementLogic
                         _model.IsWallJumpFastFalling = true;
                         _model.WallJumpFastFallTime = _model.MovementStats.TimeForUpwardsCancel;
 
-                        _model.VerticalVelocity = 0F;
+                        _model.VerticalVelocity = 0f;
                     }
                     else
                     {
@@ -65,7 +67,7 @@ namespace PlayerMovementLogic
             int dirMultiplier = 0;
             Vector2 hitPoint = _model.LastWallHit.collider.ClosestPoint(_model.BodyCollider.bounds.center);
 
-            if (hitPoint.x > _controller.transform.position.x)
+            if (hitPoint.x > _transform.position.x)
             {
                 dirMultiplier = -1;
             }

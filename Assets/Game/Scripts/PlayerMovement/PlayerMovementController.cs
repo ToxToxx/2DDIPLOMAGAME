@@ -1,38 +1,41 @@
-// === PlayerMovementController.cs ===
 using UnityEngine;
+using Zenject;
 
 namespace PlayerMovementLogic
 {
-    [RequireComponent(typeof(Rigidbody2D))]
-    public class PlayerMovementController : MonoBehaviour
+    public class PlayerMovementController : ITickable, IFixedTickable
     {
-        [Header("Model")]
-        public PlayerMovementModel Model;
+        private readonly PlayerMovementModel Model;
+        private readonly Rigidbody2D _playerRigidbody;
+        private readonly Transform _transform;
+        private readonly GroundMovement _groundMovement;
+        private readonly JumpHandler _jumpHandler;
+        private readonly LandFallController _landFallController;
+        private readonly WallSlideController _wallSlideController;
+        private readonly WallJumpController _wallJumpController;
+        private readonly DashController _dashController;
+        private readonly CollisionChecksController _collisionChecksController;
+        private readonly TimerController _timerController;
 
-        private Rigidbody2D _playerRigidbody;
-        private GroundMovement _groundMovement;
-        private JumpHandler _jumpHandler;
-        private LandFallController _landFallController;
-        private WallSlideController _wallSlideController;
-        private WallJumpController _wallJumpController;
-        private DashController _dashController;
-        private CollisionChecksController _collisionChecksController;
-        private TimerController _timerController;
-
-        private void Awake()
+        public PlayerMovementController(PlayerMovementModel model, Rigidbody2D playerRigidbody, Transform transform)
         {
-            _playerRigidbody = GetComponent<Rigidbody2D>();
+            Model = model;
+            _playerRigidbody = playerRigidbody;
+            _transform = transform;
+
             _groundMovement = new GroundMovement(Model, this);
             _jumpHandler = new JumpHandler(Model, this);
             _landFallController = new LandFallController(Model, this);
             _wallSlideController = new WallSlideController(Model, this);
-            _wallJumpController = new WallJumpController(Model, this);
+            _wallJumpController = new WallJumpController(Model, this, _transform);
             _dashController = new DashController(Model, this);
-            _collisionChecksController = new CollisionChecksController(Model, this);
+            _collisionChecksController = new CollisionChecksController(Model, this, _transform);
             _timerController = new TimerController(Model, _wallJumpController);
         }
 
-        private void Update()
+        public Transform Transform => _transform;
+
+        public void Tick()
         {
             _timerController.CountTimers();
             _jumpHandler.JumpChecks();
@@ -46,7 +49,7 @@ namespace PlayerMovementLogic
                 _dashController.DashCheck();
         }
 
-        private void FixedUpdate()
+        public void FixedTick()
         {
             _collisionChecksController.CollisionChecks();
             _jumpHandler.Jump();
@@ -87,9 +90,7 @@ namespace PlayerMovementLogic
         private void Turn(bool right)
         {
             Model.IsFacingRight = right;
-            transform.rotation = Quaternion.Euler(0, right ? 0 : 180, 0);
+            _transform.rotation = Quaternion.Euler(0, right ? 0 : 180, 0);
         }
-
-
     }
 }

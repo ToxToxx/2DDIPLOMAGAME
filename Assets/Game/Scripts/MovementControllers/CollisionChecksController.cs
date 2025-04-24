@@ -6,11 +6,13 @@ namespace PlayerMovementLogic
     {
         private readonly PlayerMovementModel _model;
         private readonly PlayerMovementController _controller;
+        private readonly Transform _transform;
 
-        public CollisionChecksController(PlayerMovementModel model, PlayerMovementController controller)
+        public CollisionChecksController(PlayerMovementModel model, PlayerMovementController controller, Transform transform)
         {
             _model = model;
             _controller = controller;
+            _transform = transform;
         }
 
         public void CollisionChecks()
@@ -49,7 +51,7 @@ namespace PlayerMovementLogic
             Vector2 boxCastOrigin = new(originEndPoint, _model.BodyCollider.bounds.center.y);
             Vector2 boxCastSize = new(_model.MovementStats.WallDetectionRayLength, adjustedHeight);
 
-            _model.WallHit = Physics2D.BoxCast(boxCastOrigin, boxCastSize, 0f, _controller.transform.right, _model.MovementStats.WallDetectionRayLength, _model.MovementStats.GroundLayer);
+            _model.WallHit = Physics2D.BoxCast(boxCastOrigin, boxCastSize, 0f, _model.IsFacingRight ? Vector2.right : Vector2.left, _model.MovementStats.WallDetectionRayLength, _model.MovementStats.GroundLayer);
             if (_model.WallHit.collider != null)
             {
                 _model.LastWallHit = _model.WallHit;
@@ -62,4 +64,3 @@ namespace PlayerMovementLogic
         }
     }
 }
-
