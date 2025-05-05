@@ -38,6 +38,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: InGameLayer
+    uniqueID: 2523376133
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

@@ -5,10 +5,8 @@ namespace EnemyDummyLogic
 {
     public class DummyVisual : MonoBehaviour
     {
-        [Header("Animation Settings")]
-        [SerializeField] private float punchStrength = 0.2f;
-        [SerializeField] private float punchDuration = 0.2f;
-        [SerializeField] private float flashDuration = 0.1f;
+        [Header("Flash Settings")]
+        [SerializeField] private float flashDuration = 0.05f;
 
         private SpriteRenderer _spriteRenderer;
         private Color _originalColor;
@@ -22,13 +20,15 @@ namespace EnemyDummyLogic
 
         public void AnimateHit()
         {
-            transform.DOPunchScale(Vector3.one * punchStrength, punchDuration, 10, 1f)
-                     .SetEase(Ease.OutExpo);
-
             if (_spriteRenderer != null)
             {
-                _spriteRenderer.DOColor(Color.red, flashDuration)
-                    .OnComplete(() => _spriteRenderer.DOColor(_originalColor, flashDuration));
+                _spriteRenderer.material.SetFloat("_FlashAmount", 1f);
+                _spriteRenderer.DOColor(Color.white, flashDuration)
+                    .OnComplete(() =>
+                    {
+                        _spriteRenderer.DOColor(_originalColor, flashDuration);
+                        _spriteRenderer.material.SetFloat("_FlashAmount", 0f);
+                    });
             }
         }
     }

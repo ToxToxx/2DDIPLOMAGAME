@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
   MoveTreshold: 0.25
-  MaxWalkSpeed: 12
+  MaxWalkSpeed: 8
   GroundAcceleration: 5
   GroundDeceleration: 20
   AirAcceleration: 5

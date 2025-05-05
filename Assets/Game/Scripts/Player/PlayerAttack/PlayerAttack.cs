@@ -53,8 +53,8 @@ namespace PlayerAttackLogic
 
         private void PerformAttack()
         {
-            int direction = _playerTransform.lossyScale.x > 0 ? 1 : -1;
-            Vector2 origin = (Vector2)_playerTransform.position + new Vector2(_boxOffset.x * direction, _boxOffset.y);
+            Vector2 rightDir = _playerTransform.right.normalized;
+            Vector2 origin = (Vector2)_playerTransform.position + (Vector2)(_boxOffset.x * rightDir + Vector2.up * _boxOffset.y);
 
             Collider2D[] hits = Physics2D.OverlapBoxAll(origin, _boxSize, 0f, _targetLayer);
             foreach (var hit in hits)
@@ -66,6 +66,7 @@ namespace PlayerAttackLogic
                 }
             }
         }
+
 
 #if UNITY_EDITOR
         // Для отрисовки в редакторе
