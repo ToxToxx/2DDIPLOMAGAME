@@ -17,6 +17,9 @@ public class PlayerInstaller : MonoInstaller
     [Header("Animation")]
     [SerializeField] private PlayerAnimationController _animationController;
 
+    [Header("Attack")]
+    [SerializeField] private LayerMask _enemyLayer;
+
     public override void InstallBindings()
     {
         // Bind Event Bus
@@ -31,7 +34,12 @@ public class PlayerInstaller : MonoInstaller
 
         // Bind Systems
         Container.BindInterfacesAndSelfTo<PlayerMovementController>().AsSingle().NonLazy();
-        Container.BindInterfacesAndSelfTo<PlayerAttack>().AsSingle().NonLazy();
+
+        Container.BindInterfacesAndSelfTo<PlayerAttack>()
+     .AsSingle()
+     .WithArguments(_enemyLayer)
+     .NonLazy();
+
         Container.BindInterfacesAndSelfTo<PlayerInteraction>()
             .AsSingle()
             .WithArguments(_interactionRadius, _interactableLayer)

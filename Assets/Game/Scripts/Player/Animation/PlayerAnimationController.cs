@@ -25,7 +25,6 @@ namespace PlayerAnimationLogic
         [Inject]
         public void Construct(PlayerMovementModel movementModel, PlayerAttack playerAttack, IPlayerEventNotifier eventNotifier)
         {
-            Debug.Log("PlayerAnimationController: Construct called");
 
             _movementModel = movementModel;
 
@@ -37,13 +36,11 @@ namespace PlayerAnimationLogic
 
             _attackSub = eventNotifier.OnAttack.Subscribe(_ =>
             {
-                Debug.Log("UniRx → Attack Event");
                 _animator.SetTrigger(Attack);
             });
 
             _jumpSub = eventNotifier.OnJump.Subscribe(_ =>
             {
-                Debug.Log("UniRx → Jump Event");
             });
         }
 
@@ -66,8 +63,6 @@ namespace PlayerAnimationLogic
             _animator.SetBool(Jump, jumping);
             _animator.SetBool(Fall, falling);
             _animator.SetBool(WallSlide, wallSliding);
-
-            Debug.Log($"Anim Params → Run:{running}, Jump:{jumping}, Fall:{falling}, WallSlide:{wallSliding}");
         }
 
         private void OnDestroy()

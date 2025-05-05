@@ -99,7 +99,7 @@ namespace PlayerMovementLogic
 
         public void Dash()
         {
-            _eventBus.RaiseDash();
+           
             if (_model.IsDashing)
             {
                 // Stop the dash after the timer
@@ -117,6 +117,7 @@ namespace PlayerMovementLogic
                     if (!_model.IsJumping && !_model.IsWallJumping)
                     {
                         _model.DashFastFallTime = 0f;
+                        _eventBus.RaiseDash();
                         _model.DashFastFallReleaseSpeed = _model.VerticalVelocity;
 
                         if (!_model.IsGrounded)

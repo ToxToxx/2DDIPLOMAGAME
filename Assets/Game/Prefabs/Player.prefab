@@ -253,6 +253,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   _animationController: {fileID: 2775483115358958149}
+  _enemyLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &2775483115358958149
 MonoBehaviour:
   m_ObjectHideFlags: 0
