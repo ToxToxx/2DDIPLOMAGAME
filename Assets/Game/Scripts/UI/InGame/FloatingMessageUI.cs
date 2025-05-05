@@ -1,6 +1,8 @@
 using UnityEngine;
 using TMPro;
-using System.Collections;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace InGameUI
 {
@@ -13,32 +15,49 @@ namespace InGameUI
         [SerializeField] private float _lifetime = 2f;
         [SerializeField] private float _typeSpeed = 0.03f;
 
-        private Coroutine _typingRoutine;
+        private CancellationTokenSource _cts;
 
         public void Show(string text)
         {
-            if (_typingRoutine != null)
-                StopCoroutine(_typingRoutine);
+            CancelExisting();
 
             gameObject.SetActive(true);
-            _typingRoutine = StartCoroutine(TypeText(text));
-            Invoke(nameof(Hide), _lifetime);
+            _cts = new CancellationTokenSource();
+
+            _ = AnimateAsync(text, _cts.Token); // запустить без ожидания
         }
 
-        private IEnumerator TypeText(string text)
+        private async Task AnimateAsync(string text, CancellationToken token)
         {
             _textComponent.text = string.Empty;
 
             foreach (char c in text)
             {
+                if (token.IsCancellationRequested) return;
+
                 _textComponent.text += c;
-                yield return new WaitForSeconds(_typeSpeed);
+                await Task.Delay(TimeSpan.FromSeconds(_typeSpeed), token);
             }
+
+            await Task.Delay(TimeSpan.FromSeconds(_lifetime), token);
+
+            Hide();
         }
 
         public void Hide()
         {
+            CancelExisting();
             gameObject.SetActive(false);
+        }
+
+        private void CancelExisting()
+        {
+            if (_cts != null)
+            {
+                _cts.Cancel();
+                _cts.Dispose();
+                _cts = null;
+            }
         }
 
         private void Update()

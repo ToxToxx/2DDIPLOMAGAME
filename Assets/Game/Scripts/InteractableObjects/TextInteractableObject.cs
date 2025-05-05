@@ -6,19 +6,29 @@ namespace PlayerInteractionLogic
     public class TextInteractable : MonoBehaviour, IInteractable
     {
         [Header("Message Settings")]
-        [SerializeField] private string _messageText = "Это объект для взаимодействия.";
+        [SerializeField] private string[] _messageTexts;
         [SerializeField] private FloatingMessageUI _floatingMessage;
+
+        private int _currentMessageIndex = 0;
 
         private void Start()
         {
-            _floatingMessage.Hide();
+            if (_floatingMessage != null)
+                _floatingMessage.Hide();
         }
+
         public void Interact()
         {
-            Debug.Log("Вы взаимодействовали с " + gameObject.name);
+            if (_messageTexts == null || _messageTexts.Length == 0)
+                return;
 
-            _floatingMessage.Show(_messageText);
+            string message = _messageTexts[_currentMessageIndex];
 
+            Debug.Log($"Интеракция с {gameObject.name}: {message}");
+
+            _floatingMessage.Show(message);
+
+            _currentMessageIndex = (_currentMessageIndex + 1) % _messageTexts.Length;
         }
     }
 }
