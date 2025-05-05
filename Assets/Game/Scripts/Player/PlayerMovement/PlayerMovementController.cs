@@ -1,3 +1,4 @@
+using PlayerEvent;
 using UnityEngine;
 using Zenject;
 

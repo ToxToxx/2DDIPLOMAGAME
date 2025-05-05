@@ -1,4 +1,4 @@
-using Unity.VisualScripting;
+using PlayerEvent;
 using UnityEngine;
 
 namespace PlayerMovementLogic

@@ -4,8 +4,9 @@ using PlayerAttackLogic;
 using UniRx;
 using System;
 using Zenject;
+using PlayerEvent;
 
-namespace PlayerAnimationLogic
+namespace PlayerAnimation
 {
     public class PlayerAnimationController : MonoBehaviour
     {

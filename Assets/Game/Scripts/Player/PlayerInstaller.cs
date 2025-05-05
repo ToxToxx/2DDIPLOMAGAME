@@ -3,49 +3,53 @@ using Zenject;
 using PlayerMovementLogic;
 using PlayerAttackLogic;
 using PlayerInteractionLogic;
-using PlayerAnimationLogic;
+using PlayerAnimation;
+using PlayerEvent;
 
-public class PlayerInstaller : MonoInstaller
+namespace Player
 {
-    [Header("Movement")]
-    [SerializeField] private PlayerMovementModel _model;
-
-    [Header("Interaction")]
-    [SerializeField] private float _interactionRadius = 1.5f;
-    [SerializeField] private LayerMask _interactableLayer;
-
-    [Header("Animation")]
-    [SerializeField] private PlayerAnimationController _animationController;
-
-    [Header("Attack")]
-    [SerializeField] private LayerMask _enemyLayer;
-
-    public override void InstallBindings()
+    public class PlayerInstaller : MonoInstaller
     {
-        // Bind Event Bus
-        Container.BindInterfacesAndSelfTo<PlayerEventBus>().AsSingle();
+        [Header("Movement")]
+        [SerializeField] private PlayerMovementModel _model;
 
-        // Bind Movement Model
-        Container.Bind<PlayerMovementModel>().FromInstance(_model).AsSingle();
+        [Header("Interaction")]
+        [SerializeField] private float _interactionRadius = 1.5f;
+        [SerializeField] private LayerMask _interactableLayer;
 
-        // Rigidbody and Transform
-        Container.Bind<Rigidbody2D>().FromComponentOn(gameObject).AsSingle();
-        Container.Bind<Transform>().FromComponentOn(gameObject).AsSingle();
+        [Header("Animation")]
+        [SerializeField] private PlayerAnimationController _animationController;
 
-        // Bind Systems
-        Container.BindInterfacesAndSelfTo<PlayerMovementController>().AsSingle().NonLazy();
+        [Header("Attack")]
+        [SerializeField] private LayerMask _enemyLayer;
 
-        Container.BindInterfacesAndSelfTo<PlayerAttack>()
-     .AsSingle()
-     .WithArguments(_enemyLayer)
-     .NonLazy();
+        public override void InstallBindings()
+        {
+            // Bind Event Bus
+            Container.BindInterfacesAndSelfTo<PlayerEventBus>().AsSingle();
 
-        Container.BindInterfacesAndSelfTo<PlayerInteraction>()
-            .AsSingle()
-            .WithArguments(_interactionRadius, _interactableLayer)
-            .NonLazy();
+            // Bind Movement Model
+            Container.Bind<PlayerMovementModel>().FromInstance(_model).AsSingle();
 
-        // Animation Controller (Inject will handle Construct)
-        Container.Bind<PlayerAnimationController>().FromInstance(_animationController).AsSingle();
+            // Rigidbody and Transform
+            Container.Bind<Rigidbody2D>().FromComponentOn(gameObject).AsSingle();
+            Container.Bind<Transform>().FromComponentOn(gameObject).AsSingle();
+
+            // Bind Systems
+            Container.BindInterfacesAndSelfTo<PlayerMovementController>().AsSingle().NonLazy();
+
+            Container.BindInterfacesAndSelfTo<PlayerAttack>()
+         .AsSingle()
+         .WithArguments(_enemyLayer)
+         .NonLazy();
+
+            Container.BindInterfacesAndSelfTo<PlayerInteraction>()
+                .AsSingle()
+                .WithArguments(_interactionRadius, _interactableLayer)
+                .NonLazy();
+
+            // Animation Controller (Inject will handle Construct)
+            Container.Bind<PlayerAnimationController>().FromInstance(_animationController).AsSingle();
+        }
     }
 }
