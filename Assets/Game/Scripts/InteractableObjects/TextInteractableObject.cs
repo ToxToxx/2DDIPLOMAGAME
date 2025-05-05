@@ -1,7 +1,8 @@
 using UnityEngine;
 using InGameUI;
+using PlayerInteractionLogic;
 
-namespace PlayerInteractionLogic
+namespace InteractalbeOjbects
 {
     public class TextInteractable : MonoBehaviour, IInteractable
     {
