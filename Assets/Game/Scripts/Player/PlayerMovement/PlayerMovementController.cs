@@ -16,12 +16,20 @@ namespace PlayerMovementLogic
         private readonly DashController _dashController;
         private readonly CollisionChecksController _collisionChecksController;
         private readonly TimerController _timerController;
+        private readonly PlayerEventBus _eventBus;
 
-        public PlayerMovementController(PlayerMovementModel model, Rigidbody2D playerRigidbody, Transform transform)
+        private bool _wasGroundedLastFrame = true;
+
+        public PlayerMovementController(
+            PlayerMovementModel model,
+            Rigidbody2D playerRigidbody,
+            Transform transform,
+            PlayerEventBus eventBus)
         {
             Model = model;
             _playerRigidbody = playerRigidbody;
             _transform = transform;
+            _eventBus = eventBus;
 
             _groundMovement = new GroundMovement(Model, this);
             _jumpHandler = new JumpHandler(Model, this);
@@ -38,7 +46,15 @@ namespace PlayerMovementLogic
         public void Tick()
         {
             _timerController.CountTimers();
+
+            // прыжок
+            bool jumpingBefore = Model.IsJumping;
             _jumpHandler.JumpChecks();
+            if (!jumpingBefore && Model.IsJumping)
+            {
+                _eventBus.RaiseJump(); // 🔥 Событие прыжка
+            }
+
             _landFallController.LandCheck();
 
             if (Model.CanWallSlide)

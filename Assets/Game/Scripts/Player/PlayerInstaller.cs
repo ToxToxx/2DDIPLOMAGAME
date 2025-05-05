@@ -3,39 +3,53 @@ using Zenject;
 using PlayerMovementLogic;
 using PlayerAttackLogic;
 using PlayerInteractionLogic;
+using PlayerAnimationLogic;
 
 public class PlayerInstaller : MonoInstaller
 {
     [Header("Movement")]
     [SerializeField] private PlayerMovementModel _model;
 
-
     [Header("Interaction")]
     [SerializeField] private float _interactionRadius = 1.5f;
     [SerializeField] private LayerMask _interactableLayer;
 
+    [Header("Animation")]
+    [SerializeField] private PlayerAnimationController _animationController;
 
     public override void InstallBindings()
     {
-        // Bind PlayerMovementModel as a single instance
+        // Bind Event Bus
+        Container.BindInterfacesAndSelfTo<PlayerEventBus>().AsSingle();
+
+        // Bind PlayerMovementModel
         Container.Bind<PlayerMovementModel>().FromInstance(_model).AsSingle();
 
-        // Bind Rigidbody2D from this GameObject
+        // Bind Rigidbody2D and Transform
         Container.Bind<Rigidbody2D>().FromComponentOn(gameObject).AsSingle();
-
-        // Bind Transform from this GameObject
         Container.Bind<Transform>().FromComponentOn(gameObject).AsSingle();
 
-        // Bind PlayerMovementController as a single instance, also as ITickable and IFixedTickable
+        // Bind PlayerMovementController
         Container.BindInterfacesAndSelfTo<PlayerMovementController>().AsSingle().NonLazy();
 
-        // Bind PlayerAttack as a single instance, also as ITickable
+        // Bind PlayerAttack
         Container.BindInterfacesAndSelfTo<PlayerAttack>().AsSingle().NonLazy();
 
-        // Bind PlayerInteraction as a single instance, also as ITickable, with parameters
+        // Bind PlayerInteraction
         Container.BindInterfacesAndSelfTo<PlayerInteraction>()
             .AsSingle()
             .WithArguments(_interactionRadius, _interactableLayer)
             .NonLazy();
+
+        // Bind PlayerAnimationController
+        Container.Bind<PlayerAnimationController>().FromInstance(_animationController).AsSingle()
+            .OnInstantiated<PlayerAnimationController>((ctx, controller) =>
+            {
+                var movementModel = ctx.Container.Resolve<PlayerMovementModel>();
+                var attack = ctx.Container.Resolve<PlayerAttack>();
+                var eventNotifier = ctx.Container.Resolve<IPlayerEventNotifier>();
+                controller.Initialize(movementModel, attack, eventNotifier);
+            });
     }
+
 }
