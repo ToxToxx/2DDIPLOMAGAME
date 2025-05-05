@@ -1691,17 +1691,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4008586246826955657, guid: 7429da60df625e44e82937eb8a2eda51, type: 3}
-      propertyPath: _messageTexts.Array.size
-      value: 2
+    - target: {fileID: 4452309320951123101, guid: 7429da60df625e44e82937eb8a2eda51, type: 3}
+      propertyPath: m_fontSize
+      value: 4.8
       objectReference: {fileID: 0}
-    - target: {fileID: 4008586246826955657, guid: 7429da60df625e44e82937eb8a2eda51, type: 3}
-      propertyPath: '_messageTexts.Array.data[0]'
-      value: Hello
+    - target: {fileID: 4452309320951123101, guid: 7429da60df625e44e82937eb8a2eda51, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 4f19194aed70b6f4bb213676cb390c24, type: 2}
+    - target: {fileID: 4452309320951123101, guid: 7429da60df625e44e82937eb8a2eda51, type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4008586246826955657, guid: 7429da60df625e44e82937eb8a2eda51, type: 3}
-      propertyPath: '_messageTexts.Array.data[1]'
-      value: This is a message text table
+    - target: {fileID: 4452309320951123101, guid: 7429da60df625e44e82937eb8a2eda51, type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4452309320951123101, guid: 7429da60df625e44e82937eb8a2eda51, type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4452309320951123101, guid: 7429da60df625e44e82937eb8a2eda51, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 1013056650230028106, guid: 4f19194aed70b6f4bb213676cb390c24, type: 2}
+    - target: {fileID: 4452309320951123101, guid: 7429da60df625e44e82937eb8a2eda51, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294310138
+      objectReference: {fileID: 0}
+    - target: {fileID: 4452309320951123101, guid: 7429da60df625e44e82937eb8a2eda51, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6361382011009893148, guid: 7429da60df625e44e82937eb8a2eda51, type: 3}
       propertyPath: m_Camera
@@ -1710,10 +1730,6 @@ PrefabInstance:
     - target: {fileID: 7603190551520688825, guid: 7429da60df625e44e82937eb8a2eda51, type: 3}
       propertyPath: m_Name
       value: Table
-      objectReference: {fileID: 0}
-    - target: {fileID: 9116215589645297519, guid: 7429da60df625e44e82937eb8a2eda51, type: 3}
-      propertyPath: _lifetime
-      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

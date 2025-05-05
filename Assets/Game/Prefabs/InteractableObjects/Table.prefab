@@ -264,7 +264,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eff78c053de67e40a03553731709f97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _messageText: Hello
+  _messageTexts:
+  - Hello
+  - This is a message text table
   _floatingMessage: {fileID: 9116215589645297519}
 --- !u!1001 &6067434899088956840
 PrefabInstance:
@@ -365,6 +367,10 @@ PrefabInstance:
     - target: {fileID: 2067339712191797259, guid: 6f454f34d4284c642931b372900ee653, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3076123624955902663, guid: 6f454f34d4284c642931b372900ee653, type: 3}
+      propertyPath: _lifetime
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8481925893728584608, guid: 6f454f34d4284c642931b372900ee653, type: 3}
       propertyPath: m_Name

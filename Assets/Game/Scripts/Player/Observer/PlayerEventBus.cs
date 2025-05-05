@@ -34,25 +34,21 @@ namespace PlayerEvent
 
         public void RaiseJump()
         {
-            Debug.Log("PlayerEventBus: RaiseJump");
             _onJump.OnNext(Unit.Default);
         }
 
         public void RaiseDash()
         {
-            Debug.Log("PlayerEventBus: RaiseDash");
             _onDash.OnNext(Unit.Default);
         }
 
         public void RaiseLand()
         {
-            Debug.Log("PlayerEventBus: RaiseLand");
             _onLand.OnNext(Unit.Default);
         }
 
         public void RaiseInteract()
         {
-            Debug.Log("PlayerEventBus: RaiseInteract");
             _onInteract.OnNext(Unit.Default);
         }
     }
