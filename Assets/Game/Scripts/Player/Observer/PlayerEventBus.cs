@@ -1,25 +1,56 @@
+using UniRx;
 using System;
+using UnityEngine;
 
 public interface IPlayerEventNotifier
 {
-    event Action OnAttack;
-    event Action OnInteract;
-    event Action OnJump;
-    event Action OnLand;
-    event Action OnDash;
+    IObservable<Unit> OnAttack { get; }
+    IObservable<Unit> OnJump { get; }
+    IObservable<Unit> OnDash { get; }
+    IObservable<Unit> OnLand { get; }
+    IObservable<Unit> OnInteract { get; }
 }
 
 public class PlayerEventBus : IPlayerEventNotifier
 {
-    public event Action OnAttack;
-    public event Action OnInteract;
-    public event Action OnJump;
-    public event Action OnLand;
-    public event Action OnDash;
+    private readonly Subject<Unit> _onAttack = new Subject<Unit>();
+    private readonly Subject<Unit> _onJump = new Subject<Unit>();
+    private readonly Subject<Unit> _onDash = new Subject<Unit>();
+    private readonly Subject<Unit> _onLand = new Subject<Unit>();
+    private readonly Subject<Unit> _onInteract = new Subject<Unit>();
 
-    public void RaiseAttack() => OnAttack?.Invoke();
-    public void RaiseInteract() => OnInteract?.Invoke();
-    public void RaiseJump() => OnJump?.Invoke();
-    public void RaiseLand() => OnLand?.Invoke();
-    public void RaiseDash() => OnDash?.Invoke();
+    public IObservable<Unit> OnAttack => _onAttack;
+    public IObservable<Unit> OnJump => _onJump;
+    public IObservable<Unit> OnDash => _onDash;
+    public IObservable<Unit> OnLand => _onLand;
+    public IObservable<Unit> OnInteract => _onInteract;
+
+    public void RaiseAttack()
+    {
+        _onAttack.OnNext(Unit.Default);
+    }
+
+    public void RaiseJump()
+    {
+        Debug.Log("PlayerEventBus: RaiseJump");
+        _onJump.OnNext(Unit.Default);
+    }
+
+    public void RaiseDash()
+    {
+        Debug.Log("PlayerEventBus: RaiseDash");
+        _onDash.OnNext(Unit.Default);
+    }
+
+    public void RaiseLand()
+    {
+        Debug.Log("PlayerEventBus: RaiseLand");
+        _onLand.OnNext(Unit.Default);
+    }
+
+    public void RaiseInteract()
+    {
+        Debug.Log("PlayerEventBus: RaiseInteract");
+        _onInteract.OnNext(Unit.Default);
+    }
 }

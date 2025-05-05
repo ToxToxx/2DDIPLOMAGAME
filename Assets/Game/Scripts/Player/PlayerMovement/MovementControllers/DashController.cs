@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace PlayerMovementLogic
@@ -6,11 +7,13 @@ namespace PlayerMovementLogic
     {
         private readonly PlayerMovementModel _model;
         private readonly PlayerMovementController _controller;
+        private readonly PlayerEventBus _eventBus;
 
-        public DashController(PlayerMovementModel model, PlayerMovementController controller)
+        public DashController(PlayerMovementModel model, PlayerMovementController controller, PlayerEventBus eventBus)
         {
             _model = model;
             _controller = controller;
+            _eventBus = eventBus;
         }
 
         public void DashCheck()
@@ -96,6 +99,7 @@ namespace PlayerMovementLogic
 
         public void Dash()
         {
+            _eventBus.RaiseDash();
             if (_model.IsDashing)
             {
                 // Stop the dash after the timer

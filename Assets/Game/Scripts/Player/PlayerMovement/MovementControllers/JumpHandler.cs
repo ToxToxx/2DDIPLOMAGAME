@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace PlayerMovementLogic
@@ -6,11 +7,13 @@ namespace PlayerMovementLogic
     {
         private readonly PlayerMovementModel _model;
         private readonly PlayerMovementController _controller;
+        private readonly PlayerEventBus _eventBus;
 
-        public JumpHandler(PlayerMovementModel model, PlayerMovementController controller)
+        public JumpHandler(PlayerMovementModel model, PlayerMovementController controller, PlayerEventBus eventBus)
         {
             _model = model;
             _controller = controller;
+            _eventBus = eventBus;
         }
 
         public void JumpChecks()
@@ -79,6 +82,7 @@ namespace PlayerMovementLogic
             else if (_model.JumpBufferTimer > 0f && _model.IsFalling && !_model.IsWallSlideFalling && _model.NumberOfJumpsUsed < _model.MovementStats.NumberOfJumpsAllowed - 1)
             {
                 InitiateJump(2); // Air jump logic
+               
                 _model.IsFastFalling = false;
             }
         }
@@ -89,7 +93,7 @@ namespace PlayerMovementLogic
             {
                 _model.IsJumping = true;
             }
-
+            _eventBus.RaiseJump();
             _model.ResetWallJumpValues();
 
             _model.JumpBufferTimer = 0f;

@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5515549736332164615}
-  - component: {fileID: 242050024640037523}
   - component: {fileID: 2112084814051182490}
   - component: {fileID: 7636667194351791148}
   m_Layer: 0
@@ -34,23 +33,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4511939727121273352}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &242050024640037523
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4134765949984095929}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f5034bc83802944c9bca57c55e08978, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_speed: 4
-  m_jumpForce: 7.5
-  m_rollForce: 6
-  m_noBlood: 0
-  m_slideDust: {fileID: 1038168246061390451, guid: 8b8c8cc6774fb074cb9139cc631b108e, type: 3}
 --- !u!95 &2112084814051182490
 Animator:
   serializedVersion: 7
@@ -61,7 +43,7 @@ Animator:
   m_GameObject: {fileID: 4134765949984095929}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3c2a5b7097b0fe44394328c0bdb9252e, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9b1a3f9e055494142b792218010ff49a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -208,7 +190,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
   m_Color: {r: 0.32710332, g: 0.6387941, b: 0.6981132, a: 0.19607843}
   m_FlipX: 0

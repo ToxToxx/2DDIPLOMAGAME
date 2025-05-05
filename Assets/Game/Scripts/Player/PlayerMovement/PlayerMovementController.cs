@@ -32,11 +32,11 @@ namespace PlayerMovementLogic
             _eventBus = eventBus;
 
             _groundMovement = new GroundMovement(Model, this);
-            _jumpHandler = new JumpHandler(Model, this);
-            _landFallController = new LandFallController(Model, this);
+            _jumpHandler = new JumpHandler(Model, this, _eventBus);
+            _landFallController = new LandFallController(Model, this, _eventBus);
             _wallSlideController = new WallSlideController(Model, this);
             _wallJumpController = new WallJumpController(Model, this, _transform);
-            _dashController = new DashController(Model, this);
+            _dashController = new DashController(Model, this, _eventBus);
             _collisionChecksController = new CollisionChecksController(Model, this, _transform);
             _timerController = new TimerController(Model, _wallJumpController);
         }
@@ -47,14 +47,7 @@ namespace PlayerMovementLogic
         {
             _timerController.CountTimers();
 
-            // прыжок
-            bool jumpingBefore = Model.IsJumping;
             _jumpHandler.JumpChecks();
-            if (!jumpingBefore && Model.IsJumping)
-            {
-                _eventBus.RaiseJump(); // 🔥 Событие прыжка
-            }
-
             _landFallController.LandCheck();
 
             if (Model.CanWallSlide)

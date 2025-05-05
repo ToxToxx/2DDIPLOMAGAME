@@ -9,6 +9,9 @@ namespace PlayerAttackLogic
 
         public bool IsAttacking { get; private set; }
 
+        private float _attackTimer = 0f;
+        private readonly float _attackDuration = 0.4f; // <-- длительность атаки в секундах
+
         public PlayerAttack(PlayerEventBus eventBus)
         {
             _eventBus = eventBus;
@@ -16,15 +19,23 @@ namespace PlayerAttackLogic
 
         public void Tick()
         {
-            if (InputManager.AttackWasPressed)
+            if (InputManager.AttackWasPressed && !IsAttacking)
             {
-                Debug.Log("Атака выполнена!");
                 IsAttacking = true;
+                _attackTimer = _attackDuration;
+
+                Debug.Log("Атака выполнена!");
                 _eventBus.RaiseAttack();
             }
-            else
+
+            if (IsAttacking)
             {
-                IsAttacking = false;
+                _attackTimer -= Time.deltaTime;
+                if (_attackTimer <= 0f)
+                {
+                    IsAttacking = false;
+                    Debug.Log("Атака завершена");
+                }
             }
         }
     }

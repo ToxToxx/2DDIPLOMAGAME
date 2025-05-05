@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace PlayerMovementLogic
@@ -6,11 +7,13 @@ namespace PlayerMovementLogic
     {
         private readonly PlayerMovementModel _model;
         private readonly PlayerMovementController _controller;
+        private readonly PlayerEventBus _eventBus;
 
-        public LandFallController(PlayerMovementModel model, PlayerMovementController controller)
+        public LandFallController(PlayerMovementModel model, PlayerMovementController controller, PlayerEventBus eventBus)
         {
             _model = model;
             _controller = controller;
+            _eventBus = eventBus;
         }
 
         public void LandCheck()
@@ -32,6 +35,7 @@ namespace PlayerMovementLogic
                 }
 
                 _model.ResetDashValues();
+                _eventBus.RaiseLand();
             }
         }
 
