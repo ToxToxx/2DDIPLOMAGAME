@@ -5,6 +5,7 @@ using PlayerAttackLogic;
 using PlayerInteractionLogic;
 using PlayerAnimation;
 using PlayerEvent;
+using PlayerAudio;
 
 namespace Player
 {
@@ -22,6 +23,9 @@ namespace Player
 
         [Header("Attack")]
         [SerializeField] private LayerMask _enemyLayer;
+
+        [Header("Audio")]
+        [SerializeField] private PlayerAudio.PlayerAudioController _audioController;
 
         public override void InstallBindings()
         {
@@ -50,6 +54,10 @@ namespace Player
 
             // Animation Controller (Inject will handle Construct)
             Container.Bind<PlayerAnimationController>().FromInstance(_animationController).AsSingle();
+
+            Container.BindInterfacesAndSelfTo<PlayerAudioController>()
+              .FromComponentOn(_audioController.gameObject)   // <- компонент из инспектора
+              .AsSingle();
         }
     }
 }
