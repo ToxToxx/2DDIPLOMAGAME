@@ -1,6 +1,7 @@
 using Zenject;
 using UnityEngine;
 using PlayerEvent;
+using PlayerMovementLogic;
 
 namespace PlayerAttackLogic
 {
@@ -8,6 +9,7 @@ namespace PlayerAttackLogic
     {
         private readonly PlayerEventBus _eventBus;
         private readonly Transform _playerTransform;
+        private readonly PlayerMovementModel _movementModel;
 
         public bool IsAttacking { get; private set; }
 
@@ -20,16 +22,21 @@ namespace PlayerAttackLogic
         private readonly float _damage = 1f;
         private readonly LayerMask _targetLayer;
 
-        public PlayerAttack(PlayerEventBus eventBus, Transform playerTransform, LayerMask targetLayer)
+        public PlayerAttack(PlayerEventBus eventBus,
+                            Transform playerTransform,
+                            PlayerMovementModel movementModel,
+                            LayerMask targetLayer)
         {
             _eventBus = eventBus;
             _playerTransform = playerTransform;
+            _movementModel = movementModel;
             _targetLayer = targetLayer;
         }
 
         public void Tick()
         {
-            if (InputManager.AttackWasPressed && !IsAttacking)
+            // Можно атаковать ТОЛЬКО когда игрок стоит на земле
+            if (_movementModel.IsGrounded && InputManager.AttackWasPressed && !IsAttacking)
             {
                 IsAttacking = true;
                 _attackTimer = _attackDuration;
@@ -37,7 +44,7 @@ namespace PlayerAttackLogic
                 Debug.Log("Атака выполнена!");
                 _eventBus.RaiseAttack();
 
-                PerformAttack(); // вызов попадания по врагу
+                PerformAttack();
             }
 
             if (IsAttacking)
@@ -54,7 +61,8 @@ namespace PlayerAttackLogic
         private void PerformAttack()
         {
             Vector2 rightDir = _playerTransform.right.normalized;
-            Vector2 origin = (Vector2)_playerTransform.position + (Vector2)(_boxOffset.x * rightDir + Vector2.up * _boxOffset.y);
+            Vector2 origin = (Vector2)_playerTransform.position +
+                               (Vector2)(_boxOffset.x * rightDir + Vector2.up * _boxOffset.y);
 
             Collider2D[] hits = Physics2D.OverlapBoxAll(origin, _boxSize, 0f, _targetLayer);
             foreach (var hit in hits)
@@ -67,13 +75,12 @@ namespace PlayerAttackLogic
             }
         }
 
-
 #if UNITY_EDITOR
-        // Для отрисовки в редакторе
         public void DrawGizmos()
         {
-            int direction = _playerTransform.lossyScale.x > 0 ? 1 : -1;
-            Vector2 origin = (Vector2)_playerTransform.position + new Vector2(_boxOffset.x * direction, _boxOffset.y);
+            Vector2 rightDir = _playerTransform.right.normalized;
+            Vector2 origin = (Vector2)_playerTransform.position +
+                               (Vector2)(_boxOffset.x * rightDir + Vector2.up * _boxOffset.y);
             Gizmos.color = Color.red;
             Gizmos.DrawWireCube(origin, _boxSize);
         }
