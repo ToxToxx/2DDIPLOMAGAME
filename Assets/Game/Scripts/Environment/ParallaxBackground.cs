@@ -1,59 +1,64 @@
 using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
-public class ParallaxBackground : MonoBehaviour
+namespace Background
 {
-    [Header("References")]
-    [SerializeField] private Transform _camera;
-
-    [Header("Parallax Settings")]
-    [SerializeField] private Vector2 _parallaxMultiplier = new Vector2(0.8f, 0.8f); // ближе к 1 для стабильности
-    [SerializeField] private bool _lockY = false;
-
-    [Header("Smoothing & Lookahead")]
-    [SerializeField] private float _smoothing = 0.05f;       // интерполяция (чем ниже, тем плавнее)
-    [SerializeField] private float _lookaheadFactor = 0.2f;   // предсказание движения
-
-    private Vector3 _lastCameraPosition;
-    private Vector3 _targetPosition;
-    private Vector3 _velocity = Vector3.zero;
-
-    private void Start()
+    public class ParallaxBackground : MonoBehaviour
     {
-        if (_camera == null)
-            _camera = Camera.main?.transform;
+        [Header("Camera Reference")]
+        [SerializeField] private Transform _camera;
 
-        _lastCameraPosition = _camera.position;
-        _targetPosition = transform.position;
+        [Header("Layers")]
+        [SerializeField] private List<ParallaxLayer> _layers = new();
 
-        StartCoroutine(TrackCameraLate());
-    }
+        [Header("Smoothing & Lookahead")]
+        [SerializeField] private float _smoothing = 0.1f;   // 0 → без сглаживания
+        [SerializeField] private float _lookaheadFactor = 0.15f;
 
-    private IEnumerator TrackCameraLate()
-    {
-        while (true)
+        private Vector3 _lastCameraPos;      // позиция камеры на предыдущем кадре
+        private Vector3 _cameraVelocity;     // сглаженное дельта‑движение
+        private Vector3 _initialCameraPos;   // где была камера при старте
+
+        private void Start()
         {
-            yield return new WaitForEndOfFrame();
+            if (_camera == null)
+                _camera = Camera.main.transform;
 
-            Vector3 delta = _camera.position - _lastCameraPosition;
-            Vector3 lookahead = delta * _lookaheadFactor;
+            _initialCameraPos = _camera.position;
+            _lastCameraPos = _initialCameraPos;
 
-            Vector3 desiredPos = _camera.position + lookahead;
+            // запоминаем, где ты разместил каждый слой
+            foreach (var layer in _layers)
+                if (layer.LayerTransform != null)
+                    layer.InitialPosition = layer.LayerTransform.position;
+        }
 
-            _targetPosition = new Vector3(
-                desiredPos.x * _parallaxMultiplier.x,
-                (_lockY ? transform.position.y : desiredPos.y * _parallaxMultiplier.y),
-                transform.position.z
-            );
+        private void LateUpdate()
+        {
+            // движение камеры за кадр
+            Vector3 frameDelta = _camera.position - _lastCameraPos;
 
-            transform.position = Vector3.SmoothDamp(
-                transform.position,
-                _targetPosition,
-                ref _velocity,
-                _smoothing
-            );
+            // сглаживаем резкие рывки
+            _cameraVelocity = Vector3.Lerp(_cameraVelocity, frameDelta, _smoothing);
 
-            _lastCameraPosition = _camera.position;
+            // предсказанная позиция камеры (look‑ahead)
+            Vector3 predictedDelta = (_camera.position - _initialCameraPos) + (_cameraVelocity * _lookaheadFactor);
+
+            foreach (var layer in _layers)
+            {
+                if (layer.LayerTransform == null) continue;
+
+                Vector3 offset = new Vector3(
+                    predictedDelta.x * layer.ParallaxMultiplier.x,
+                    layer.LockY ? 0f : predictedDelta.y * layer.ParallaxMultiplier.y,
+                    0f);
+
+                Vector3 target = layer.InitialPosition + offset;
+
+                layer.LayerTransform.position = target;
+            }
+
+            _lastCameraPos = _camera.position;
         }
     }
 }
