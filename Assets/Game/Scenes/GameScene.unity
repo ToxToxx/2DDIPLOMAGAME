@@ -8920,10 +8920,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71d9f74a666f7cc449dc4ec53691f6a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _jumpClip: {fileID: 8300000, guid: f81080818a495ba499d10d930e5fe9bd, type: 3}
-  _landClip: {fileID: 8300000, guid: 10c6ac1fdcf762d4fbaff3004d1f3677, type: 3}
-  _dashClip: {fileID: 8300000, guid: 90c0d7ee66f190547b49b827fc740321, type: 3}
-  _attackClip: {fileID: 8300000, guid: c129fa379bedbaf4b9a45e1f1f355068, type: 3}
+  _jumpClip: {fileID: 8300000, guid: d5faafd40f76af54f9798804e54579cc, type: 3}
+  _landClip: {fileID: 8300000, guid: 188a8f1f0c077ee439fe3a62b5939218, type: 3}
+  _dashClip: {fileID: 8300000, guid: 4aa2c0ca6bcdcd2478b440448c6f80e9, type: 3}
+  _attackClip: {fileID: 8300000, guid: d82b2807dd9261742a3b2fdca37d8e55, type: 3}
   _volume: 0.5
 --- !u!4 &782211500 stripped
 Transform:
