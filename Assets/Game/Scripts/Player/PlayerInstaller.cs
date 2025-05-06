@@ -25,7 +25,7 @@ namespace Player
         [SerializeField] private LayerMask _enemyLayer;
 
         [Header("Audio")]
-        [SerializeField] private PlayerAudio.PlayerAudioController _audioController;
+        [SerializeField] private PlayerAudioController _audioController;
 
         public override void InstallBindings()
         {
