@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2154794994320091599}
   - component: {fileID: 7193583628457829650}
   m_Layer: 7
-  m_Name: Square
+  m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -187,7 +187,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7603190551520688825}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -250,7 +250,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 3, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &4008586246826955657
 MonoBehaviour:
@@ -265,8 +265,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _messageTexts:
-  - Hello
+  - Hello hero
   - This is a message text table
+  _proximityMessage: E
   _floatingMessage: {fileID: 9116215589645297519}
 --- !u!1001 &6067434899088956840
 PrefabInstance:
@@ -371,6 +372,22 @@ PrefabInstance:
     - target: {fileID: 3076123624955902663, guid: 6f454f34d4284c642931b372900ee653, type: 3}
       propertyPath: _lifetime
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7636447282769072437, guid: 6f454f34d4284c642931b372900ee653, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.78301877
+      objectReference: {fileID: 0}
+    - target: {fileID: 7636447282769072437, guid: 6f454f34d4284c642931b372900ee653, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.91909176
+      objectReference: {fileID: 0}
+    - target: {fileID: 7636447282769072437, guid: 6f454f34d4284c642931b372900ee653, type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7636447282769072437, guid: 6f454f34d4284c642931b372900ee653, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4286104302
       objectReference: {fileID: 0}
     - target: {fileID: 8481925893728584608, guid: 6f454f34d4284c642931b372900ee653, type: 3}
       propertyPath: m_Name
