@@ -1,7 +1,7 @@
 // === PlayerMovementModel.cs ===
 using UnityEngine;
 
-namespace PlayerMovementLogic
+namespace PlayerMovement
 {
     [System.Serializable]
     public class PlayerMovementModel

@@ -2,7 +2,7 @@ using PlayerEvent;
 using UnityEngine;
 using Zenject;
 
-namespace PlayerMovementLogic
+namespace PlayerMovement
 {
     public class PlayerMovementController : ITickable, IFixedTickable
     {

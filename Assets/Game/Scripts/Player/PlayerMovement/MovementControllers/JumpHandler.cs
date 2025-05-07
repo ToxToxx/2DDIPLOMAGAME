@@ -1,7 +1,7 @@
 using PlayerEvent;
 using UnityEngine;
 
-namespace PlayerMovementLogic
+namespace PlayerMovement
 {
     public class JumpHandler
     {

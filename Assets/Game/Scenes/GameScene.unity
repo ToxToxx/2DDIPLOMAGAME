@@ -8487,11 +8487,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!1 &155832839 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4594400449168146448, guid: 877a919889b4956439ed322ab97aad2e, type: 3}
-  m_PrefabInstance: {fileID: 701548562}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &258549762
 GameObject:
   m_ObjectHideFlags: 0
@@ -8840,10 +8835,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2907227993378562274, guid: 877a919889b4956439ed322ab97aad2e, type: 3}
-      propertyPath: _audioController
-      value: 
-      objectReference: {fileID: 701548568}
     - target: {fileID: 4511939727121273352, guid: 877a919889b4956439ed322ab97aad2e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10.698682
@@ -8888,43 +8879,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4413235680834895929, guid: 877a919889b4956439ed322ab97aad2e, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4594400449168146448, guid: 877a919889b4956439ed322ab97aad2e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 701548568}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 877a919889b4956439ed322ab97aad2e, type: 3}
 --- !u!114 &701548563 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2907227993378562274, guid: 877a919889b4956439ed322ab97aad2e, type: 3}
   m_PrefabInstance: {fileID: 701548562}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 155832839}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f10f298d1ef088c44b6f6b165d5e1e69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &701548568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 155832839}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71d9f74a666f7cc449dc4ec53691f6a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _jumpClip: {fileID: 8300000, guid: d5faafd40f76af54f9798804e54579cc, type: 3}
-  _landClip: {fileID: 8300000, guid: 188a8f1f0c077ee439fe3a62b5939218, type: 3}
-  _dashClip: {fileID: 8300000, guid: 4aa2c0ca6bcdcd2478b440448c6f80e9, type: 3}
-  _attackClip: {fileID: 8300000, guid: d82b2807dd9261742a3b2fdca37d8e55, type: 3}
-  _volume: 0.5
 --- !u!4 &782211500 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6785355634005972229, guid: 877a919889b4956439ed322ab97aad2e, type: 3}

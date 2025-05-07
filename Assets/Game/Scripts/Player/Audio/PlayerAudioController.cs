@@ -1,40 +1,40 @@
-using UnityEngine;
 using UniRx;
 using Zenject;
 using PlayerEvent;
 using System;
+using UnityEngine;
 
 namespace PlayerAudio
 {
-    public class PlayerAudioController : MonoBehaviour, IInitializable, IDisposable
+    public class PlayerAudioController : IInitializable, IDisposable
     {
-        [Header("Audio Clips")]
-        [SerializeField] private AudioClip _jumpClip;
-        [SerializeField] private AudioClip _landClip;
-        [SerializeField] private AudioClip _dashClip;
-        [SerializeField] private AudioClip _attackClip;
-        [SerializeField] private float _volume = 1f;
-
-        private AudioSource _source;
+        private readonly AudioSource _source;
+        private readonly PlayerAudioConfig _cfg;
+        private readonly IPlayerEventNotifier _events;
         private readonly CompositeDisposable _disposables = new();
 
-        // ➊  Поле‑инъекция — Zenject заполнит ссылку даже для FromInstance
-        [Inject] private IPlayerEventNotifier _events = null;
+        public PlayerAudioController(AudioSource source,
+                                     PlayerAudioConfig cfg,
+                                     IPlayerEventNotifier events)
+        {
+            _source = source;
+            _cfg = cfg;
+            _events = events;
+        }
 
         public void Initialize()
         {
-            _source = gameObject.AddComponent<AudioSource>();
             _source.playOnAwake = false;
 
-            _events.OnJump.Subscribe(_ => Play(_jumpClip)).AddTo(_disposables);
-            _events.OnLand.Subscribe(_ => Play(_landClip)).AddTo(_disposables);
-            _events.OnDash.Subscribe(_ => Play(_dashClip)).AddTo(_disposables);
-            _events.OnAttack.Subscribe(_ => Play(_attackClip)).AddTo(_disposables);
+            _events.OnJump.Subscribe(_ => Play(_cfg.Jump)).AddTo(_disposables);
+            _events.OnLand.Subscribe(_ => Play(_cfg.Land)).AddTo(_disposables);
+            _events.OnDash.Subscribe(_ => Play(_cfg.Dash)).AddTo(_disposables);
+            _events.OnAttack.Subscribe(_ => Play(_cfg.Attack)).AddTo(_disposables);
         }
 
-        private void Play(AudioClip clip)
+        private void Play(UnityEngine.AudioClip clip)
         {
-            if (clip != null) _source.PlayOneShot(clip, _volume);
+            if (clip != null) _source.PlayOneShot(clip, _cfg.Volume);
         }
 
         public void Dispose() => _disposables.Dispose();

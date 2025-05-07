@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
-using PlayerMovementLogic;
-using PlayerAttackLogic;
+using PlayerMovement;
+using PlayerAttack;
 using PlayerInteractionLogic;
 using PlayerAnimation;
 using PlayerEvent;
@@ -11,53 +11,90 @@ namespace Player
 {
     public class PlayerInstaller : MonoInstaller
     {
+        /* ──────────── Serialized refs ──────────── */
         [Header("Movement")]
-        [SerializeField] private PlayerMovementModel _model;
+        [SerializeField] private PlayerMovementModel _movementModel;
 
         [Header("Interaction")]
         [SerializeField] private float _interactionRadius = 1.5f;
         [SerializeField] private LayerMask _interactableLayer;
 
+        [Header("Attack")]
+        [SerializeField] private LayerMask _enemyLayer;
+        [SerializeField] private PlayerAttackStats _attackStats;
+
         [Header("Animation")]
         [SerializeField] private PlayerAnimationController _animationController;
 
-        [Header("Attack")]
-        [SerializeField] private LayerMask _enemyLayer;
-
         [Header("Audio")]
-        [SerializeField] private PlayerAudioController _audioController;
+        [SerializeField] private AudioSource _audioSource;
+        [SerializeField] private PlayerAudioConfig _audioConfig;
+        /* ───────────────────────────────────────── */
 
         public override void InstallBindings()
         {
-            // Bind Event Bus
+            BindEventBus();
+            BindCoreComponents();
+            BindMovement();
+            BindAttack();
+            BindInteraction();
+            BindAnimation();
+            BindAudio();
+        }
+
+        /* ─────────────  Bind methods  ───────────── */
+
+        private void BindEventBus()
+        {
             Container.BindInterfacesAndSelfTo<PlayerEventBus>().AsSingle();
+        }
 
-            // Bind Movement Model
-            Container.Bind<PlayerMovementModel>().FromInstance(_model).AsSingle();
-
-            // Rigidbody and Transform
+        private void BindCoreComponents()
+        {
+            Container.Bind<PlayerMovementModel>().FromInstance(_movementModel).AsSingle();
             Container.Bind<Rigidbody2D>().FromComponentOn(gameObject).AsSingle();
             Container.Bind<Transform>().FromComponentOn(gameObject).AsSingle();
+        }
 
-            // Bind Systems
-            Container.BindInterfacesAndSelfTo<PlayerMovementController>().AsSingle().NonLazy();
+        private void BindMovement()
+        {
+            Container.BindInterfacesAndSelfTo<PlayerMovementController>()
+                     .AsSingle()
+                     .NonLazy();
+        }
 
-            Container.BindInterfacesAndSelfTo<PlayerAttack>()
-         .AsSingle()
-         .WithArguments(_enemyLayer)
-         .NonLazy();
+        private void BindAttack()
+        {
+            Container.Bind<PlayerAttackStats>().FromInstance(_attackStats).AsSingle();
 
+            Container.BindInterfacesAndSelfTo<PlayerAttackController>()
+                     .AsSingle()
+                     .WithArguments(_enemyLayer)   // _attackStats приходит через контейнер
+                     .NonLazy();
+        }
+
+        private void BindInteraction()
+        {
             Container.BindInterfacesAndSelfTo<PlayerInteraction>()
-                .AsSingle()
-                .WithArguments(_interactionRadius, _interactableLayer)
-                .NonLazy();
+                     .AsSingle()
+                     .WithArguments(_interactionRadius, _interactableLayer)
+                     .NonLazy();
+        }
 
-            // Animation Controller (Inject will handle Construct)
-            Container.Bind<PlayerAnimationController>().FromInstance(_animationController).AsSingle();
+        private void BindAnimation()
+        {
+            Container.Bind<PlayerAnimationController>()
+                     .FromInstance(_animationController)
+                     .AsSingle();
+        }
+
+        private void BindAudio()
+        {
+            Container.Bind<PlayerAudioConfig>().FromInstance(_audioConfig).AsSingle();
 
             Container.BindInterfacesAndSelfTo<PlayerAudioController>()
-              .FromComponentOn(_audioController.gameObject)   // <- компонент из инспектора
-              .AsSingle();
+                     .AsSingle()
+                     .WithArguments(_audioSource);
         }
     }
 }

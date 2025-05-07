@@ -1,6 +1,6 @@
 using UnityEngine;
-using PlayerMovementLogic;
-using PlayerAttackLogic;
+using PlayerMovement;
+using PlayerAttack;
 using UniRx;
 using System;
 using Zenject;
@@ -24,7 +24,7 @@ namespace PlayerAnimation
         private static readonly int Attack = Animator.StringToHash("Attack");
 
         [Inject]
-        public void Construct(PlayerMovementModel movementModel, PlayerAttack playerAttack, IPlayerEventNotifier eventNotifier)
+        public void Construct(PlayerMovementModel movementModel, PlayerAttackController playerAttack, IPlayerEventNotifier eventNotifier)
         {
 
             _movementModel = movementModel;

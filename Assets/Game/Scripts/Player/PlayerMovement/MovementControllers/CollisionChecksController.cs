@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace PlayerMovementLogic
+namespace PlayerMovement
 {
     public class CollisionChecksController
     {

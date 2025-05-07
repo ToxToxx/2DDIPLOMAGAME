@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Player Movement")]
+[CreateAssetMenu(menuName = "Game/Player/PlayerMovementStats")]
 public class PlayerMovementStats : ScriptableObject
 {
     [Header("Walk")]
