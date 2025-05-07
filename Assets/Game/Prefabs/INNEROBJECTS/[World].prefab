@@ -47,6 +47,7 @@ MonoBehaviour:
   _scriptableObjectInstallers: []
   _monoInstallers:
   - {fileID: 2259357408517672866}
+  - {fileID: 6555543581569160126}
   - {fileID: 0}
   _installerPrefabs: []
   _autoRun: 1
@@ -581,7 +582,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7242634374334237291}
   - component: {fileID: 526111312416033275}
-  - component: {fileID: 8983678289703377058}
+  - component: {fileID: 6555543581569160126}
   m_Layer: 0
   m_Name: MusicManager
   m_TagString: Untagged
@@ -701,7 +702,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &8983678289703377058
+--- !u!114 &6555543581569160126
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -710,7 +711,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4072355899514569650}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a34790f1e4ffc54eb729ac497c3b04a, type: 3}
+  m_Script: {fileID: 11500000, guid: fe5aec716c697c44ba120aaca19bf3ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _track: {fileID: 8300000, guid: b4d90f47980dfa047a9b1640dadeeb9b, type: 3}

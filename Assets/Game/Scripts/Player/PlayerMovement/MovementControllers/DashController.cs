@@ -1,3 +1,4 @@
+using InGameInput;
 using PlayerEvent;
 using UnityEngine;
 
@@ -8,17 +9,19 @@ namespace PlayerMovement
         private readonly PlayerMovementModel _model;
         private readonly PlayerMovementController _controller;
         private readonly PlayerEventBus _eventBus;
+        private readonly IInputService _input;
 
-        public DashController(PlayerMovementModel model, PlayerMovementController controller, PlayerEventBus eventBus)
+        public DashController(PlayerMovementModel model, PlayerMovementController controller, PlayerEventBus eventBus, IInputService input)
         {
             _model = model;
             _controller = controller;
             _eventBus = eventBus;
+            _input = input;
         }
 
         public void DashCheck()
         {
-            if (InputManager.DashWasPressed)
+            if (_input.DashWasPressed)
             {
                 // Ground dash
                 if (_model.IsGrounded && _model.DashOnGroundTimer < 0 && !_model.IsDashing)
@@ -47,7 +50,7 @@ namespace PlayerMovement
 
         private void InitiateDash()
         {
-            _model.DashDirection = InputManager.Movement;
+            _model.DashDirection = _input.Movement;
 
             Vector2 closestDirection = Vector2.zero;
             float minDistance = Vector2.Distance(_model.DashDirection, _model.MovementStats.DashDirections[0]);

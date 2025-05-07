@@ -36,12 +36,12 @@ namespace PlayerMovement
             _transform = transform;
             _eventBus = eventBus;
 
-            _groundMovement = new GroundMovement(Model, this);
-            _jumpHandler = new JumpHandler(Model, this, _eventBus);
+            _groundMovement = new GroundMovement(Model, this, _input);
+            _jumpHandler = new JumpHandler(Model, this, _eventBus, _input);
             _landFallController = new LandFallController(Model, this, _eventBus);
             _wallSlideController = new WallSlideController(Model, this, _eventBus);
-            _wallJumpController = new WallJumpController(Model, this, _transform);
-            _dashController = new DashController(Model, this, _eventBus);
+            _wallJumpController = new WallJumpController(Model, this, _transform, _input);
+            _dashController = new DashController(Model, this, _eventBus, _input);
             _collisionChecksController = new CollisionChecksController(Model, this, _transform);
             _timerController = new TimerController(Model, _wallJumpController);
         }

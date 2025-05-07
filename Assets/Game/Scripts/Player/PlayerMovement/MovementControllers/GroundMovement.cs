@@ -1,3 +1,4 @@
+using InGameInput;
 using UnityEngine;
 
 namespace PlayerMovement
@@ -6,11 +7,13 @@ namespace PlayerMovement
     {
         private readonly PlayerMovementModel _model;
         private readonly PlayerMovementController _controller;
+        private readonly IInputService _input;
 
-        public GroundMovement(PlayerMovementModel model, PlayerMovementController controller)
+        public GroundMovement(PlayerMovementModel model, PlayerMovementController controller, IInputService input)
         {
             _model = model;
             _controller = controller;
+            _input = input;
         }
 
         public void Move(float acceleration, float deceleration, Vector2 moveInput)
@@ -21,7 +24,7 @@ namespace PlayerMovement
                 {
                     _controller.TurnCheck(moveInput); // оставляем во внешнем компоненте поворот
 
-                    float targetVelocity = InputManager.RunIsHeld
+                    float targetVelocity = _input.RunIsHeld
                         ? moveInput.x * _model.MovementStats.MaxRunSpeed
                         : moveInput.x * _model.MovementStats.MaxWalkSpeed;
 

@@ -1,3 +1,4 @@
+using InGameInput;
 using UnityEngine;
 
 namespace PlayerMovement
@@ -7,12 +8,14 @@ namespace PlayerMovement
         private readonly PlayerMovementModel _model;
         private readonly PlayerMovementController _controller;
         private readonly Transform _transform;
+        private readonly IInputService _input;
 
-        public WallJumpController(PlayerMovementModel model, PlayerMovementController controller, Transform transform)
+        public WallJumpController(PlayerMovementModel model, PlayerMovementController controller, Transform transform, IInputService input)
         {
             _model = model;
             _controller = controller;
             _transform = transform;
+            _input = input;
         }
 
         public void WallJumpCheck()
@@ -23,7 +26,7 @@ namespace PlayerMovement
             }
 
             // wall jump fast falling
-            if (InputManager.JumpWasReleased && !_model.IsWallSliding && !_model.IsTouchingWall && _model.IsWallJumping)
+            if (_input.JumpWasReleased && !_model.IsWallSliding && !_model.IsTouchingWall && _model.IsWallJumping)
             {
                 if (_model.VerticalVelocity > 0f)
                 {
@@ -44,7 +47,7 @@ namespace PlayerMovement
             }
 
             // actual jump with post wall jump buffer time
-            if (InputManager.JumpWasPressed && _model.WallJumpPostBufferTimer > 0f)
+            if (_input.JumpWasPressed && _model.WallJumpPostBufferTimer > 0f)
             {
                 InitialWallJump();
             }

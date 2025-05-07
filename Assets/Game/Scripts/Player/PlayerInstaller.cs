@@ -7,7 +7,6 @@ using PlayerAnimation;
 using PlayerEvent;
 using PlayerAudio;
 using UnityEngine.InputSystem;
-using InGameInput;
 
 namespace Player
 {
@@ -41,7 +40,6 @@ namespace Player
         public override void InstallBindings()
         {
             BindEventBus();
-            BindInput();
             BindAnimation();
             BindCoreComponents();
             BindMovement();
@@ -52,11 +50,6 @@ namespace Player
 
         /* ─────────────  Bind methods  ───────────── */
 
-        private void BindInput()
-        {
-            Container.Bind<PlayerInput>().FromInstance(_playerInput).AsSingle();
-            Container.BindInterfacesAndSelfTo<InputService>().AsSingle();  // IInitializable+ITickable
-        }
         private void BindEventBus()
         {
             Container.BindInterfacesAndSelfTo<PlayerEventBus>().AsSingle();

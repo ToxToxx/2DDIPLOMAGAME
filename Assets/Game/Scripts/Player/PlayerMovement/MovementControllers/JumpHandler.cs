@@ -1,3 +1,4 @@
+using InGameInput;
 using PlayerEvent;
 using UnityEngine;
 
@@ -5,20 +6,22 @@ namespace PlayerMovement
 {
     public class JumpHandler
     {
+        private readonly IInputService _input;
         private readonly PlayerMovementModel _model;
         private readonly PlayerMovementController _controller;
         private readonly PlayerEventBus _eventBus;
 
-        public JumpHandler(PlayerMovementModel model, PlayerMovementController controller, PlayerEventBus eventBus)
+        public JumpHandler(PlayerMovementModel model, PlayerMovementController controller, PlayerEventBus eventBus, IInputService input)
         {
             _model = model;
             _controller = controller;
             _eventBus = eventBus;
+            _input = input;
         }
 
         public void JumpChecks()
         {
-            if (InputManager.JumpWasPressed)
+            if (_input.JumpWasPressed)
             {
                 if (_model.IsWallSlideFalling && _model.WallJumpPostBufferTimer >= 0f)
                 {
@@ -30,7 +33,7 @@ namespace PlayerMovement
                 _model.JumpReleasedDuringBufferTimer = false;
             }
 
-            if (InputManager.JumpWasReleased)
+            if (_input.JumpWasReleased)
             {
                 if (_model.JumpBufferTimer > 0)
                 {
