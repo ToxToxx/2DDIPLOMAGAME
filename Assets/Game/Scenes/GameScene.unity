@@ -8650,6 +8650,14 @@ PrefabInstance:
       propertyPath: '_monoInstallers.Array.data[0]'
       value: 
       objectReference: {fileID: 701548563}
+    - target: {fileID: 8983678289703377058, guid: 8b8b7f47de425504482b12208037f457, type: 3}
+      propertyPath: _track
+      value: 
+      objectReference: {fileID: 8300000, guid: b4d90f47980dfa047a9b1640dadeeb9b, type: 3}
+    - target: {fileID: 8983678289703377058, guid: 8b8b7f47de425504482b12208037f457, type: 3}
+      propertyPath: _volume
+      value: 0.4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

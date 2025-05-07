@@ -35,7 +35,7 @@ namespace PlayerMovement
             _groundMovement = new GroundMovement(Model, this);
             _jumpHandler = new JumpHandler(Model, this, _eventBus);
             _landFallController = new LandFallController(Model, this, _eventBus);
-            _wallSlideController = new WallSlideController(Model, this);
+            _wallSlideController = new WallSlideController(Model, this, _eventBus);
             _wallJumpController = new WallJumpController(Model, this, _transform);
             _dashController = new DashController(Model, this, _eventBus);
             _collisionChecksController = new CollisionChecksController(Model, this, _transform);

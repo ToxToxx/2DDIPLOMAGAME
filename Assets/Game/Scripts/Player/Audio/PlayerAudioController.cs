@@ -30,9 +30,11 @@ namespace PlayerAudio
             _events.OnLand.Subscribe(_ => Play(_cfg.Land)).AddTo(_disposables);
             _events.OnDash.Subscribe(_ => Play(_cfg.Dash)).AddTo(_disposables);
             _events.OnAttack.Subscribe(_ => Play(_cfg.Attack)).AddTo(_disposables);
+            _events.OnWallSlideStart.Subscribe(_ => Play(_cfg.Land)).AddTo(_disposables); 
         }
 
-        private void Play(UnityEngine.AudioClip clip)
+
+        private void Play(AudioClip clip)
         {
             if (clip != null) _source.PlayOneShot(clip, _cfg.Volume);
         }

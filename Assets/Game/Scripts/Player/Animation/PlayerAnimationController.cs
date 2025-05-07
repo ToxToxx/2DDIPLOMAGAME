@@ -1,21 +1,23 @@
+using DG.Tweening;
 using UnityEngine;
+using UniRx;
+using Zenject;
+using System;
 using PlayerMovement;
 using PlayerAttack;
-using UniRx;
-using System;
-using Zenject;
 using PlayerEvent;
 
 namespace PlayerAnimation
 {
-    public class PlayerAnimationController : MonoBehaviour
+    /// <summary>
+    ///  Чистый (не‑MonoBehaviour) контроллер анимаций игрока.
+    ///  Обновляется через ITickable, получает события через IPlayerEventNotifier.
+    /// </summary>
+    public class PlayerAnimationController : ITickable, IDisposable
     {
-        [Header("Components")]
-        [SerializeField] private Animator _animator;
-
-        private PlayerMovementModel _movementModel;
-        private IDisposable _attackSub;
-        private IDisposable _jumpSub;
+        private readonly Animator _animator;
+        private readonly PlayerMovementModel _model;
+        private readonly CompositeDisposable _subs = new();
 
         private static readonly int Run = Animator.StringToHash("Run");
         private static readonly int Jump = Animator.StringToHash("Jump");
@@ -23,42 +25,26 @@ namespace PlayerAnimation
         private static readonly int WallSlide = Animator.StringToHash("WallSlide");
         private static readonly int Attack = Animator.StringToHash("Attack");
 
-        [Inject]
-        public void Construct(PlayerMovementModel movementModel, PlayerAttackController playerAttack, IPlayerEventNotifier eventNotifier)
+        public PlayerAnimationController(Animator animator,
+                                         PlayerMovementModel model,
+                                         IPlayerEventNotifier events)
         {
+            _animator = animator;
+            _model = model;
 
-            _movementModel = movementModel;
-
-            if (_animator == null)
-                Debug.LogError("Animator not assigned!");
-
-            if (_movementModel == null)
-                Debug.LogError("MovementModel is null!");
-
-            _attackSub = eventNotifier.OnAttack.Subscribe(_ =>
-            {
-                _animator.SetTrigger(Attack);
-            });
-
-            _jumpSub = eventNotifier.OnJump.Subscribe(_ =>
-            {
-            });
+            // события
+            events.OnAttack.Subscribe(_ => _animator.SetTrigger(Attack)).AddTo(_subs);
+            events.OnJump.Subscribe(_ => { /* можно добавить jump‑fx */ }).AddTo(_subs);
         }
 
-        private void Update()
-        {
-            UpdateAnimationStates();
-        }
+        public void Tick() => UpdateStates();
 
-        private void UpdateAnimationStates()
+        private void UpdateStates()
         {
-            if (_movementModel == null || _animator == null)
-                return;
-
-            bool running = Mathf.Abs(_movementModel.HorizontalVelocity) > 0.1f && _movementModel.IsGrounded;
-            bool jumping = _movementModel.IsJumping;
-            bool falling = _movementModel.IsFalling && !_movementModel.IsGrounded;
-            bool wallSliding = _movementModel.IsWallSliding;
+            bool running = Mathf.Abs(_model.HorizontalVelocity) > 0.1f && _model.IsGrounded;
+            bool jumping = _model.IsJumping;
+            bool falling = _model.IsFalling && !_model.IsGrounded;
+            bool wallSliding = _model.IsWallSliding;
 
             _animator.SetBool(Run, running);
             _animator.SetBool(Jump, jumping);
@@ -66,10 +52,8 @@ namespace PlayerAnimation
             _animator.SetBool(WallSlide, wallSliding);
         }
 
-        private void OnDestroy()
-        {
-            _attackSub?.Dispose();
-            _jumpSub?.Dispose();
-        }
+        public void Dispose() => _subs.Dispose();
     }
 }
+
+

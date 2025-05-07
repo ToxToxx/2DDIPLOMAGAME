@@ -1,3 +1,5 @@
+using PlayerEvent;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace PlayerMovement
@@ -6,11 +8,13 @@ namespace PlayerMovement
     {
         private readonly PlayerMovementModel _model;
         private readonly PlayerMovementController _controller;
+        private readonly PlayerEventBus _eventBus;
 
-        public WallSlideController(PlayerMovementModel model, PlayerMovementController controller)
+        public WallSlideController(PlayerMovementModel model, PlayerMovementController controller, PlayerEventBus eventBus)
         {
             _model = model;
             _controller = controller;
+            _eventBus = eventBus;
         }
 
         public void WallSlideCheck()
@@ -19,6 +23,7 @@ namespace PlayerMovement
             {
                 if (_model.VerticalVelocity < 0f && !_model.IsWallSliding)
                 {
+                    _eventBus.RaiseWallSlideStart();
                     _model.ResetJumpValues();
                     _model.ResetWallJumpValues();
                     _model.ResetDashValues();
@@ -52,6 +57,7 @@ namespace PlayerMovement
         {
             if (_model.IsWallSliding)
             {
+                
                 _model.VerticalVelocity = Mathf.Lerp(_model.VerticalVelocity, -_model.MovementStats.WallSlideSpeed, _model.MovementStats.WallSlideDecelerationSpeed * Time.fixedDeltaTime);
             }
         }

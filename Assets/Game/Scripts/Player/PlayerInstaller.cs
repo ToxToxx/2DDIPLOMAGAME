@@ -24,7 +24,7 @@ namespace Player
         [SerializeField] private PlayerAttackStats _attackStats;
 
         [Header("Animation")]
-        [SerializeField] private PlayerAnimationController _animationController;
+        [SerializeField] private Animator _playerAnimator;
 
         [Header("Audio")]
         [SerializeField] private AudioSource _audioSource;
@@ -34,11 +34,11 @@ namespace Player
         public override void InstallBindings()
         {
             BindEventBus();
+            BindAnimation();
             BindCoreComponents();
             BindMovement();
             BindAttack();
             BindInteraction();
-            BindAnimation();
             BindAudio();
         }
 
@@ -83,9 +83,9 @@ namespace Player
 
         private void BindAnimation()
         {
-            Container.Bind<PlayerAnimationController>()
-                     .FromInstance(_animationController)
-                     .AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerAnimationController>()
+                     .AsSingle()
+                     .WithArguments(_playerAnimator);   
         }
 
         private void BindAudio()
@@ -96,5 +96,7 @@ namespace Player
                      .AsSingle()
                      .WithArguments(_audioSource);
         }
+
+      
     }
 }
