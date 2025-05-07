@@ -1,3 +1,4 @@
+using InGameInput;
 using PlayerEvent;
 using UnityEngine;
 using Zenject;
@@ -6,6 +7,7 @@ namespace PlayerMovement
 {
     public class PlayerMovementController : ITickable, IFixedTickable
     {
+        private readonly IInputService _input;
         private readonly PlayerMovementModel Model;
         private readonly Rigidbody2D _playerRigidbody;
         private readonly Transform _transform;
@@ -25,8 +27,10 @@ namespace PlayerMovement
             PlayerMovementModel model,
             Rigidbody2D playerRigidbody,
             Transform transform,
-            PlayerEventBus eventBus)
+            PlayerEventBus eventBus,
+            IInputService input)
         {
+            _input = input;
             Model = model;
             _playerRigidbody = playerRigidbody;
             _transform = transform;
@@ -74,14 +78,12 @@ namespace PlayerMovement
 
         private void ApplyMovement()
         {
-            float accel = Model.IsGrounded ?
-                Model.MovementStats.GroundAcceleration :
-                Model.MovementStats.AirAcceleration;
-            float decel = Model.IsGrounded ?
-                Model.MovementStats.GroundDeceleration :
-                Model.MovementStats.AirDeceleration;
+            float accel = Model.IsGrounded ? Model.MovementStats.GroundAcceleration
+                                           : Model.MovementStats.AirAcceleration;
+            float decel = Model.IsGrounded ? Model.MovementStats.GroundDeceleration
+                                           : Model.MovementStats.AirDeceleration;
 
-            _groundMovement.Move(accel, decel, InputManager.Movement);
+            _groundMovement.Move(accel, decel, _input.Movement);
         }
 
         private void ApplyVelocity()

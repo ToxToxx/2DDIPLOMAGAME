@@ -6,12 +6,18 @@ using PlayerInteractionLogic;
 using PlayerAnimation;
 using PlayerEvent;
 using PlayerAudio;
+using UnityEngine.InputSystem;
+using InGameInput;
 
 namespace Player
 {
     public class PlayerInstaller : MonoInstaller
     {
+
         /* ──────────── Serialized refs ──────────── */
+        [Header("Input")]
+        [SerializeField] private PlayerInput _playerInput;
+
         [Header("Movement")]
         [SerializeField] private PlayerMovementModel _movementModel;
 
@@ -31,9 +37,11 @@ namespace Player
         [SerializeField] private PlayerAudioConfig _audioConfig;
         /* ───────────────────────────────────────── */
 
+
         public override void InstallBindings()
         {
             BindEventBus();
+            BindInput();
             BindAnimation();
             BindCoreComponents();
             BindMovement();
@@ -44,6 +52,11 @@ namespace Player
 
         /* ─────────────  Bind methods  ───────────── */
 
+        private void BindInput()
+        {
+            Container.Bind<PlayerInput>().FromInstance(_playerInput).AsSingle();
+            Container.BindInterfacesAndSelfTo<InputService>().AsSingle();  // IInitializable+ITickable
+        }
         private void BindEventBus()
         {
             Container.BindInterfacesAndSelfTo<PlayerEventBus>().AsSingle();

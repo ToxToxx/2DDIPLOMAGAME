@@ -58,7 +58,7 @@ namespace TMPro.Examples
                 Application.targetFrameRate = -1;
 
             if (Application.platform == RuntimePlatform.IPhonePlayer || Application.platform == RuntimePlatform.Android)
-                Input.simulateMouseWithTouches = false;
+                UnityEngine.Input.simulateMouseWithTouches = false;
 
             cameraTransform = transform;
             previousSmoothing = MovementSmoothing;
@@ -128,7 +128,7 @@ namespace TMPro.Examples
             moveVector = Vector3.zero;
 
             // Check Mouse Wheel Input prior to Shift Key so we can apply multiplier on Shift for Scrolling
-            mouseWheel = Input.GetAxis("Mouse ScrollWheel");
+            mouseWheel = UnityEngine.Input.GetAxis("Mouse ScrollWheel");
 
             float touchCount = Input.touchCount;
 
@@ -242,8 +242,8 @@ namespace TMPro.Examples
                     }
 
 
-                    mouseY = Input.GetAxis("Mouse Y");
-                    mouseX = Input.GetAxis("Mouse X");
+                    mouseY = UnityEngine.Input.GetAxis("Mouse Y");
+                    mouseX = UnityEngine.Input.GetAxis("Mouse X");
 
                     moveVector = cameraTransform.TransformDirection(mouseX, mouseY, 0);
 
@@ -256,8 +256,8 @@ namespace TMPro.Examples
             // Check Pinching to Zoom in - out on Mobile device
             if (touchCount == 2)
             {
-                Touch touch0 = Input.GetTouch(0);
-                Touch touch1 = Input.GetTouch(1);
+                Touch touch0 = UnityEngine.Input.GetTouch(0);
+                Touch touch1 = UnityEngine.Input.GetTouch(1);
 
                 Vector2 touch0PrevPos = touch0.position - touch0.deltaPosition;
                 Vector2 touch1PrevPos = touch1.position - touch1.deltaPosition;

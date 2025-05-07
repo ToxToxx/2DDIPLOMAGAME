@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
   _monoInstallers:
+  - {fileID: 2259357408517672866}
   - {fileID: 0}
   _installerPrefabs: []
   _autoRun: 1
@@ -143,7 +144,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6361352549438796925}
   - component: {fileID: 2491767992844242919}
-  - component: {fileID: 322015628377009068}
+  - component: {fileID: 2259357408517672866}
   m_Layer: 0
   m_Name: Input
   m_TagString: Untagged
@@ -196,7 +197,7 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &322015628377009068
+--- !u!114 &2259357408517672866
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -205,9 +206,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1127794835136986047}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd192bb040da3824285975ad6adefce4, type: 3}
+  m_Script: {fileID: 11500000, guid: 85cd1a51985d82c4dbecb9a5486a01a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerInput: {fileID: 2491767992844242919}
 --- !u!1 &2551096691725153173
 GameObject:
   m_ObjectHideFlags: 0
@@ -711,8 +713,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a34790f1e4ffc54eb729ac497c3b04a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _track: {fileID: 0}
-  _volume: 0.8
+  _track: {fileID: 8300000, guid: b4d90f47980dfa047a9b1640dadeeb9b, type: 3}
+  _volume: 0.4
   _loop: 1
 --- !u!1 &6275514566929283875
 GameObject:

@@ -2,12 +2,13 @@ using Zenject;
 using UnityEngine;
 using PlayerEvent;
 using PlayerMovement;
-using PlayerAttack;
+using InGameInput;
 
 namespace PlayerAttack
 {
     public class PlayerAttackController : ITickable
     {
+        private readonly IInputService _input;
         private readonly PlayerEventBus _eventBus;
         private readonly Transform _playerTransform;
         private readonly PlayerMovementModel _movementModel;
@@ -21,18 +22,20 @@ namespace PlayerAttack
                             Transform playerTransform,
                             PlayerMovementModel movementModel,
                             PlayerAttackStats stats,
-                            LayerMask targetLayer)
+                            LayerMask targetLayer,
+                            IInputService input)
         {
             _eventBus = eventBus;
             _playerTransform = playerTransform;
             _movementModel = movementModel;
             _stats = stats;
             _targetLayer = targetLayer;
+            _input = input;
         }
 
         public void Tick()
         {
-            if (_movementModel.IsGrounded && InputManager.AttackWasPressed && !IsAttacking)
+            if (_movementModel.IsGrounded && _input.AttackWasPressed && !IsAttacking)
             {
                 IsAttacking = true;
                 _attackTimer = _stats.AttackDuration;
