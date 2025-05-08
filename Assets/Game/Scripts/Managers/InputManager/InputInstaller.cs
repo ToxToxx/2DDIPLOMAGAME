@@ -14,6 +14,4 @@ namespace InGameInput
             Container.BindInterfacesAndSelfTo<InputService>().AsSingle();
         }
     }
-
-
 }

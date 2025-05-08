@@ -3,6 +3,23 @@ using System.Collections.Generic;
 
 namespace Background
 {
+    [System.Serializable]
+    public class ParallaxLayer
+    {
+        public Transform LayerTransform;
+
+        [Tooltip("Насколько слой смещается по X относительно движения камеры")]
+        [Range(0f, 1f)]
+        public float ParallaxMultiplierX = 0.1f;
+
+        [Tooltip("Насколько слой смещается по Y относительно движения камеры")]
+        [Range(0f, 1f)]
+        public float ParallaxMultiplierY = 0.1f;
+
+        [Tooltip("Отключить вертикальный параллакс для этого слоя")]
+        public bool DisableVerticalParallax = false;
+    }
+
     public class ParallaxBackground : MonoBehaviour
     {
         [Header("Camera Reference")]
@@ -11,54 +28,37 @@ namespace Background
         [Header("Layers")]
         [SerializeField] private List<ParallaxLayer> _layers = new();
 
-        [Header("Smoothing & Lookahead")]
-        [SerializeField] private float _smoothing = 0.1f;   // 0 → без сглаживания
-        [SerializeField] private float _lookaheadFactor = 0.15f;
-
-        private Vector3 _lastCameraPos;      // позиция камеры на предыдущем кадре
-        private Vector3 _cameraVelocity;     // сглаженное дельта‑движение
-        private Vector3 _initialCameraPos;   // где была камера при старте
+        private Vector3 _lastCameraPosition;
 
         private void Start()
         {
             if (_camera == null)
                 _camera = Camera.main.transform;
 
-            _initialCameraPos = _camera.position;
-            _lastCameraPos = _initialCameraPos;
-
-            // запоминаем, где ты разместил каждый слой
-            foreach (var layer in _layers)
-                if (layer.LayerTransform != null)
-                    layer.InitialPosition = layer.LayerTransform.position;
+            _lastCameraPosition = _camera.position;
         }
 
         private void LateUpdate()
         {
-            // движение камеры за кадр
-            Vector3 frameDelta = _camera.position - _lastCameraPos;
-
-            // сглаживаем резкие рывки
-            _cameraVelocity = Vector3.Lerp(_cameraVelocity, frameDelta, _smoothing);
-
-            // предсказанная позиция камеры (look‑ahead)
-            Vector3 predictedDelta = (_camera.position - _initialCameraPos) + (_cameraVelocity * _lookaheadFactor);
+            Vector3 delta = _camera.position - _lastCameraPosition;
 
             foreach (var layer in _layers)
             {
-                if (layer.LayerTransform == null) continue;
+                if (layer.LayerTransform == null)
+                    continue;
 
-                Vector3 offset = new Vector3(
-                    predictedDelta.x * layer.ParallaxMultiplier.x,
-                    layer.LockY ? 0f : predictedDelta.y * layer.ParallaxMultiplier.y,
-                    0f);
+                Vector3 pos = layer.LayerTransform.position;
+                // Horizontal parallax
+                pos.x += delta.x * layer.ParallaxMultiplierX;
 
-                Vector3 target = layer.InitialPosition + offset;
+                // Vertical parallax per layer
+                float verticalDelta = layer.DisableVerticalParallax ? 0f : delta.y;
+                pos.y += verticalDelta * layer.ParallaxMultiplierY;
 
-                layer.LayerTransform.position = target;
+                layer.LayerTransform.position = pos;
             }
 
-            _lastCameraPos = _camera.position;
+            _lastCameraPosition = _camera.position;
         }
     }
 }
