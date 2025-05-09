@@ -8,7 +8,7 @@ using InGameUI;
 namespace InteractableObjects
 {
     [RequireComponent(typeof(Collider2D))]
-    public class WellInteractable : MonoBehaviour, IInteractable
+    public class FlashingObject : MonoBehaviour, IInteractable
     {
         [Header("Flash Settings")]
         [SerializeField] private Color _flashColor = Color.white;
