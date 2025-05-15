@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_GUID: 542e3edb29980ca4e87721e0af0ac9d7
+  m_SerializeEntries:
+  - m_GUID: 00a5b67c880f3744eb652df12b22c192
+    m_Address: Lever1/PieceOfObjects
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 57026ab06f681374b89114cb84b3eb07
+    m_Address: Dummy
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7429da60df625e44e82937eb8a2eda51
+    m_Address: Table
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9ee3f4d3f86484c4bb43962fe2179257
+    m_Address: Level1/Stones
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: aa110ec10a9efe246bff0f8a8c5ab532
+    m_Address: Level1/Sunflower
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ae2005cacc9951c45b3b8d8334fa6940
+    m_Address: WheelBarrow
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b7220951f8a22b641bef980d54ddfcf8
+    m_Address: Level1/Bushes
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bf9fc56119243bf45bfc6f0380ad2054
+    m_Address: Level1/GrassesSmall
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dda17eadce652cc49bd24d36bd9c38a7
+    m_Address: Well
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ecb13c9a145572e4db2b711728bc74d7
+    m_Address: Level1/Reeds
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f51830604abb9d04682ac6407689a0bd
+    m_Address: Leve1/Trees
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fbfddb86d2c9c9244b24c1edc44aa550
+    m_Address: Level1/Grid
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Level1Grid
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 5e33290a245afd84ba19ead9ed52e8b1, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: a0ee3ca3514849a47bdcfbd0c5806c04, type: 2}
+    - {fileID: 11400000, guid: 23955c93f90fd884a8b9a228a886a86f, type: 2}

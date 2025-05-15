@@ -843,39 +843,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _jsonFileName: Level1.json
-  _pools:
-  - key: Level1
-    prefab: {fileID: 2174713890160678240, guid: fbfddb86d2c9c9244b24c1edc44aa550, type: 3}
-    initialSize: 1
+  _poolsConfig:
   - key: Well
-    prefab: {fileID: 498696366812411006, guid: dda17eadce652cc49bd24d36bd9c38a7, type: 3}
     initialSize: 2
   - key: WheelBarrow
-    prefab: {fileID: 1939938867207909043, guid: ae2005cacc9951c45b3b8d8334fa6940, type: 3}
     initialSize: 2
   - key: Dummy
-    prefab: {fileID: 2191113180630973058, guid: 57026ab06f681374b89114cb84b3eb07, type: 3}
     initialSize: 1
-  - key: GrassesSmall
-    prefab: {fileID: 833012720054216175, guid: bf9fc56119243bf45bfc6f0380ad2054, type: 3}
+  - key: Level1/Grid
     initialSize: 1
-  - key: Trees
-    prefab: {fileID: 353403445829780077, guid: f51830604abb9d04682ac6407689a0bd, type: 3}
+  - key: Level1/GrassesSmall
     initialSize: 1
-  - key: Reeds
-    prefab: {fileID: 5001258420362418830, guid: ecb13c9a145572e4db2b711728bc74d7, type: 3}
+  - key: Leve1/Trees
     initialSize: 1
-  - key: Sunflower
-    prefab: {fileID: 3364896288130633370, guid: aa110ec10a9efe246bff0f8a8c5ab532, type: 3}
+  - key: Level1/Reeds
     initialSize: 1
-  - key: PieceOfObjects
-    prefab: {fileID: 854502391485221729, guid: 00a5b67c880f3744eb652df12b22c192, type: 3}
+  - key: Level1/Sunflower
     initialSize: 1
-  - key: Stones
-    prefab: {fileID: 6147336136460961774, guid: 9ee3f4d3f86484c4bb43962fe2179257, type: 3}
+  - key: Lever1/PieceOfObjects
     initialSize: 1
-  - key: Bushes
-    prefab: {fileID: 5421355664571260790, guid: b7220951f8a22b641bef980d54ddfcf8, type: 3}
+  - key: Level1/Stones
+    initialSize: 1
+  - key: Level1/Bushes
     initialSize: 1
 --- !u!1 &1992333255
 GameObject:
