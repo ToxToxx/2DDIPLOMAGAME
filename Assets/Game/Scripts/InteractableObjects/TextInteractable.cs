@@ -32,7 +32,6 @@ namespace InteractableObjects
             if (_messageTexts == null || _messageTexts.Length == 0) return;
 
             var msg = _messageTexts[_currentIndex];
-            Debug.Log($"Интеракция с {name}: {msg}");
             _floatingMessage.Show(msg);
 
             _currentIndex = (_currentIndex + 1) % _messageTexts.Length;
