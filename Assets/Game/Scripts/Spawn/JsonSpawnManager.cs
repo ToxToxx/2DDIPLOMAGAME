@@ -19,7 +19,7 @@ namespace SpawnLogic
         public class AddressablePoolEntry
         {
             public string key;
-            public int initialSize = 5;
+            public int initialSize = 1;
         }
 
         private Dictionary<string, AddressablePrefabPool> _poolDict;

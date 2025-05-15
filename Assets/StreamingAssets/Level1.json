@@ -30,13 +30,17 @@
         "position": { "x": 23.54, "y": -10.07, "z": 1 },
         "rotationZ": 0,
         "prefabKeys": [ "Dummy" ]
-      }
-      ,
+      },
+        {
+        "position": { "x": -15.74, "y": 9.26, "z": 1 },
+        "rotationZ": 0,
+        "prefabKeys": [ "Level1/Wall" ]
+      },
         {
         "position": { "x": 0, "y": 0, "z": 0 },
         "rotationZ": 0,
         "prefabKeys": [ "Level1/GrassesSmall", "Leve1/Trees", "Level1/Reeds", "Level1/Sunflower", "Lever1/PieceOfObjects"
-        , "Level1/Stones", "Level1/Bushes"       ]
+        , "Level1/Stones", "Level1/Bushes" , "Level1/Tables"]
       }
 
     ]

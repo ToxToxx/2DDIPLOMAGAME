@@ -10,13 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Default Local Group
+  m_Name: Level1Local
   m_EditorClassIdentifier: 
-  m_GroupName: Default Local Group
+  m_GroupName: Level1Local
   m_GUID: 542e3edb29980ca4e87721e0af0ac9d7
   m_SerializeEntries:
   - m_GUID: 00a5b67c880f3744eb652df12b22c192
     m_Address: Lever1/PieceOfObjects
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 25315105977d3254da91a11c9d561e9b
+    m_Address: Level1/Wall
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -57,6 +62,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dda17eadce652cc49bd24d36bd9c38a7
     m_Address: Well
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e4b842e118e288c4da0aa7b11ad5e6ba
+    m_Address: Level1/Tables
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
