@@ -99,7 +99,7 @@ namespace SpawnLogic
                     _poolsConfig.Add(new AddressablePoolEntry
                     {
                         key = k,
-                        initialSize = 5  // или любое значение по умолчанию
+                        initialSize = 1  // или любое значение по умолчанию
                     });
                 }
             }
