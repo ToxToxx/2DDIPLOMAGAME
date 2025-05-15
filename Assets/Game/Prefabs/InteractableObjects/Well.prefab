@@ -154,6 +154,7 @@ MonoBehaviour:
   _startFlashAmount: 1
   _proximityMessage: E
   _floatingMessage: {fileID: 7037350466952731294}
+  _visualRenderer: {fileID: 2931551588659555485}
 --- !u!1 &6548608824123431728
 GameObject:
   m_ObjectHideFlags: 0

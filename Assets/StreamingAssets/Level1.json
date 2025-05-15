@@ -1,0 +1,44 @@
+{
+    "entries": [
+      
+        {
+        "position": { "x": 0, "y": 0, "z": 0 },
+        "rotationZ": 0,
+        "prefabKeys": [ "Level1" ]
+      },
+      {
+        "position": { "x":  -12.73, "y": -8.01, "z": 1 },
+        "rotationZ": 0,
+        "prefabKeys": [ "Well" ]
+      },
+      {
+        "position": { "x":  7.82, "y": -7.35, "z": 1 },
+        "rotationZ": 0,
+        "prefabKeys": [ "WheelBarrow" ]
+      },
+      {
+        "position": { "x": 112.1302, "y": -12.13, "z": 1 },
+        "rotationZ": 0,
+        "prefabKeys": [ "Well" ]
+      },
+      {
+        "position": { "x": 101.77, "y": -11.41, "z": 1 },
+        "rotationZ": 0,
+        "prefabKeys": [ "WheelBarrow" ]
+      },
+        {
+        "position": { "x": 23.54, "y": -10.07, "z": 1 },
+        "rotationZ": 0,
+        "prefabKeys": [ "Dummy" ]
+      }
+      ,
+        {
+        "position": { "x": 0, "y": 0, "z": 0 },
+        "rotationZ": 0,
+        "prefabKeys": [ "GrassesSmall", "Trees", "Reeds", "Sunflower", "PieceOfObjects"
+        , "Stones", "Bushes"       ]
+      }
+
+    ]
+  }
+  

@@ -1,0 +1,20 @@
+{
+    "entries": [
+      {
+        "position": { "x":  -12.73, "y": -8.01, "z": 1 },
+        "rotationZ": 0,
+        "prefabKeys": [ "Well" ]
+      },
+      {
+        "position": { "x": 112.1302, "y": -12.13, "z": 1 },
+        "rotationZ": 45,
+        "prefabKeys": [ "Well" ]
+      },
+      {
+        "position": { "x": 101.77, "y": -11.41, "z": 1 },
+        "rotationZ": 45,
+        "prefabKeys": [ "WheelBarrow" ]
+      }
+    ]
+  }
+  
