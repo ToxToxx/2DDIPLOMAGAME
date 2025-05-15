@@ -3,68 +3,114 @@ namespace SpawnLogic
     using UnityEngine;
     using System.Collections.Generic;
     using System.IO;
+    using System.Collections;
+    using UnityEngine.Networking;
 
     public class JsonSpawnManager : MonoBehaviour
     {
+
         [Header("JSON Settings")]
         [Tooltip("Имя файла внутри StreamingAssets")]
         [SerializeField] private string _jsonFileName = "spawnpoints.json";
 
-        [Header("Prefab References")]
-        [SerializeField] private List<PrefabReference> _prefabRefs;
+        [Header("Prefab Pools")]
+        [Tooltip("Настройте ключи и их префабы + начальный размер пула")]
+        [SerializeField] private List<PrefabPoolEntry> _pools = new List<PrefabPoolEntry>();
 
-        private Dictionary<string, GameObject> _lookup;
+        [System.Serializable]
+        public class PrefabPoolEntry
+        {
+            public string key;             // совпадает с prefabKeys в JSON
+            public GameObject prefab;         // сам префаб
+            public int initialSize = 5; // сколько закешировать сразу
+        }
+
+        private Dictionary<string, PrefabPool> _poolDict;
 
         private void Awake()
         {
-            // Построить словарь ключ → префаб
-            _lookup = new Dictionary<string, GameObject>();
-            foreach (var pr in _prefabRefs)
+            // Построить пулы
+            _poolDict = new Dictionary<string, PrefabPool>();
+            foreach (var entry in _pools)
             {
-                if (!string.IsNullOrEmpty(pr.key) && pr.prefab != null)
-                    _lookup[pr.key] = pr.prefab;
+                if (string.IsNullOrEmpty(entry.key) || entry.prefab == null) continue;
+                var pool = new PrefabPool(entry.prefab, entry.initialSize, transform);
+                _poolDict[entry.key] = pool;
             }
         }
 
         private void Start()
         {
-            LoadAndSpawn();
+            StartCoroutine(LoadAndSpawn());
         }
 
-        private void LoadAndSpawn()
+        private IEnumerator LoadAndSpawn()
+        {
+            // Читаем JSON асинхронно
+            string path = Path.Combine(Application.streamingAssetsPath, _jsonFileName);
+            using var req = UnityWebRequest.Get(path);
+            yield return req.SendWebRequest();
+
+            if (req.result != UnityWebRequest.Result.Success)
+            {
+                Debug.LogError($"SpawnManager: ошибка чтения {path}: {req.error}");
+                yield break;
+            }
+
+            var data = JsonUtility.FromJson<SpawnData>(req.downloadHandler.text);
+            if (data?.entries == null || data.entries.Length == 0)
+            {
+                Debug.LogWarning("SpawnManager: нет записей для спавна");
+                yield break;
+            }
+
+            // Спавним
+            foreach (var entry in data.entries)
+            {
+                Vector3 pos = entry.position.ToVector3();
+                Quaternion rot = Quaternion.Euler(0f, 0f, entry.rotationZ);
+
+                foreach (var key in entry.prefabKeys)
+                {
+                    if (!_poolDict.TryGetValue(key, out var pool))
+                    {
+                        Debug.LogWarning($"SpawnManager: пул для ключа '{key}' не найден");
+                        continue;
+                    }
+                    pool.Spawn(pos, rot);
+                }
+            }
+        }
+
+#if UNITY_EDITOR
+        // Метод для ручной синхронизации списка _pools с JSON-ключами
+        public void SyncWithJson()
         {
             string path = Path.Combine(Application.streamingAssetsPath, _jsonFileName);
             if (!File.Exists(path))
             {
-                Debug.LogError($"JsonSpawnManager: файл не найден: {path}");
+                Debug.LogError($"SpawnManager: файл не найден {path}");
                 return;
             }
 
-            string json = File.ReadAllText(path);
-            var data = JsonUtility.FromJson<SpawnData>(json);
-            if (data?.entries == null || data.entries.Length == 0)
-            {
-                Debug.LogWarning("JsonSpawnManager: нет точек спавна в JSON");
-                return;
-            }
+            var txt = File.ReadAllText(path);
+            var data = JsonUtility.FromJson<SpawnData>(txt);
+            if (data?.entries == null) return;
 
-            foreach (var entry in data.entries)
-            {
-                Vector3 pos = entry.position.ToVector3();
-                Quaternion rot = Quaternion.Euler(0, 0, entry.rotationZ);
+            var keys = new HashSet<string>();
+            foreach (var e in data.entries)
+                foreach (var k in e.prefabKeys)
+                    keys.Add(k);
 
-                // спавним по каждому ключу в списке
-                foreach (var key in entry.prefabKeys)
-                {
-                    if (!_lookup.TryGetValue(key, out var prefab))
-                    {
-                        Debug.LogWarning($"JsonSpawnManager: ключ '{key}' не найден в PrefabReferences");
-                        continue;
-                    }
-                    Instantiate(prefab, pos, rot);
-                }
-            }
+            // Добавить отсутствующие
+            foreach (var k in keys)
+                if (!_pools.Exists(x => x.key == k))
+                    _pools.Add(new PrefabPoolEntry { key = k, initialSize = 5 });
+
+            // Удалить лишние
+            _pools.RemoveAll(x => !keys.Contains(x.key));
         }
+#endif
     }
 
 }
