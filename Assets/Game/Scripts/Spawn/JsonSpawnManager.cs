@@ -8,8 +8,6 @@ namespace SpawnLogic
 
     public class JsonSpawnManager : MonoBehaviour
     {
-
-
         [Header("JSON Settings")]
         [SerializeField] private string _jsonFileName = "spawnpoints.json";
 
