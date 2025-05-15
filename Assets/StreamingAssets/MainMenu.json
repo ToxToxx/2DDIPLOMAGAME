@@ -1,0 +1,11 @@
+{
+    "entries": [
+        {
+        "position": { "x": 0, "y": 0, "z": 0 },
+        "rotationZ": 0,
+        "prefabKeys": [ "MainMenu"]
+      }
+
+    ]
+  }
+  
