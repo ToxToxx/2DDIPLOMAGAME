@@ -24,11 +24,8 @@ namespace InteractableObjects
         [SerializeField] private float _duration = 0.5f;
         [SerializeField] private Ease _ease = Ease.OutQuad;
 
-        // чистый класс-триггер подсказки
         private ProximityMessageTrigger _proximityTrigger;
-        // сам коллайдер-тригер, чтобы не отключать его случайно
         private Collider2D _triggerCollider;
-        // флаг, что объект уже убран
         private bool _hasRemoved;
 
         private void Awake()
@@ -45,20 +42,29 @@ namespace InteractableObjects
             _floatingMessage?.Hide();
         }
 
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (_hasRemoved) return;
+
+            _proximityTrigger.HandleEnter(other);
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (_hasRemoved) return;
+            _proximityTrigger.HandleExit(other);
+        }
+
         public void Interact()
         {
-            // если уже «удалено» — дальше не идём
             if (_hasRemoved) return;
             _hasRemoved = true;
 
-            // отключаем именно целевой коллайдер, а не триггер
             if (_targetCollider != null)
                 _targetCollider.enabled = false;
 
-            // сразу же прячем подсказку
             _floatingMessage?.Hide();
 
-            // анимация смещения и поворота
             var t = _animatedTransform;
             float toY = t.localPosition.y + _moveOffsetY;
             float toZ = _rotationZ;
@@ -69,18 +75,6 @@ namespace InteractableObjects
                 .Play();
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            // не показываем подсказку, если уже убрали
-            if (_hasRemoved) return;
-            // отрабатываем подсказку
-            _proximityTrigger.HandleEnter(other);
-        }
 
-        private void OnTriggerExit2D(Collider2D other)
-        {
-            if (_hasRemoved) return;
-            _proximityTrigger.HandleExit(other);
-        }
     }
 }

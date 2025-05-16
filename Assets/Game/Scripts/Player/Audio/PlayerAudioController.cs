@@ -33,12 +33,11 @@ namespace PlayerAudio
             _events.OnWallSlideStart.Subscribe(_ => Play(_cfg.Land)).AddTo(_disposables); 
         }
 
+        public void Dispose() => _disposables.Dispose();
 
         private void Play(AudioClip clip)
         {
             if (clip != null) _source.PlayOneShot(clip, _cfg.Volume);
         }
-
-        public void Dispose() => _disposables.Dispose();
     }
 }

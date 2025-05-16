@@ -1,4 +1,3 @@
-// === PlayerMovementModel.cs ===
 using UnityEngine;
 
 namespace PlayerMovement

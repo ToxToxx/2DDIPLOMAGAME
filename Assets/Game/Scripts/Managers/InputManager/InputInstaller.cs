@@ -6,7 +6,7 @@ namespace InGameInput
 {
     public class InputInstaller : MonoInstaller
     {
-        [SerializeField] private PlayerInput _playerInput;  // ссылка на компонент PlayerInput
+        [SerializeField] private PlayerInput _playerInput;  
 
         public override void InstallBindings()
         {

@@ -1,10 +1,8 @@
-// Assets/Game/Scripts/Audio/MusicPlayer.cs
 using UnityEngine;
 using Zenject;
 
 namespace Audio
 {
-    /// <summary>Проигрывает один трек при старте уровня.</summary>
     public class MusicPlayer : IInitializable
     {
         private readonly AudioSource _source;

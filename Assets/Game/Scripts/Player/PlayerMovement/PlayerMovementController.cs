@@ -76,6 +76,12 @@ namespace PlayerMovement
             ApplyVelocity();
         }
 
+        public void TurnCheck(Vector2 moveInput)
+        {
+            if (Model.IsFacingRight && moveInput.x < 0) Turn(false);
+            else if (!Model.IsFacingRight && moveInput.x > 0) Turn(true);
+        }
+
         private void ApplyMovement()
         {
             float accel = Model.IsGrounded ? Model.MovementStats.GroundAcceleration
@@ -93,11 +99,7 @@ namespace PlayerMovement
             _playerRigidbody.linearVelocity = new Vector2(Model.HorizontalVelocity, Model.VerticalVelocity);
         }
 
-        public void TurnCheck(Vector2 moveInput)
-        {
-            if (Model.IsFacingRight && moveInput.x < 0) Turn(false);
-            else if (!Model.IsFacingRight && moveInput.x > 0) Turn(true);
-        }
+
 
         private void Turn(bool right)
         {

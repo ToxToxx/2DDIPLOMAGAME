@@ -15,8 +15,9 @@ namespace PlayerAttack
         private readonly PlayerAttackStats _stats;
         private readonly LayerMask _targetLayer;
 
-        private float _attackTimer;
         public bool IsAttacking { get; private set; }
+
+        private float _attackTimer;
 
         public PlayerAttackController(PlayerEventBus eventBus,
                             Transform playerTransform,
@@ -63,16 +64,5 @@ namespace PlayerAttack
                     dmg.TakeDamage(_stats.Damage);
             }
         }
-
-#if UNITY_EDITOR
-        public void DrawGizmos()
-        {
-            Vector2 dir = _playerTransform.right.normalized;
-            Vector2 origin = (Vector2)_playerTransform.position +
-                             (Vector2)(_stats.BoxOffset.x * dir + Vector2.up * _stats.BoxOffset.y);
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireCube(origin, _stats.BoxSize);
-        }
-#endif
     }
 }

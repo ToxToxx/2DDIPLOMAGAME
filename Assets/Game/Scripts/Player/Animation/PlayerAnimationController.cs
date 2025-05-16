@@ -1,18 +1,13 @@
-using DG.Tweening;
 using UnityEngine;
 using UniRx;
 using Zenject;
 using System;
 using PlayerMovement;
-using PlayerAttack;
 using PlayerEvent;
 
 namespace PlayerAnimation
 {
-    /// <summary>
-    ///  Чистый (не‑MonoBehaviour) контроллер анимаций игрока.
-    ///  Обновляется через ITickable, получает события через IPlayerEventNotifier.
-    /// </summary>
+
     public class PlayerAnimationController : ITickable, IDisposable
     {
         private readonly Animator _animator;
@@ -32,7 +27,6 @@ namespace PlayerAnimation
             _animator = animator;
             _model = model;
 
-            // события
             events.OnAttack.Subscribe(_ => _animator.SetTrigger(Attack)).AddTo(_subs);
             events.OnJump.Subscribe(_ => { /* можно добавить jump‑fx */ }).AddTo(_subs);
         }

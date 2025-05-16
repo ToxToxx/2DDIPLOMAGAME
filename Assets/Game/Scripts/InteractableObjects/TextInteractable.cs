@@ -1,8 +1,6 @@
-// Assets/Game/Scripts/Interactables/TextInteractable.cs
 using UnityEngine;
 using InGameUI;
 using PlayerInteractionLogic;
-using Player; // PlayerMarker
 
 namespace InteractableObjects
 {
@@ -27,6 +25,12 @@ namespace InteractableObjects
             _floatingMessage?.Hide();
         }
 
+        private void OnTriggerEnter2D(Collider2D other)
+            => _proximityTrigger.HandleEnter(other);
+
+        private void OnTriggerExit2D(Collider2D other)
+            => _proximityTrigger.HandleExit(other);
+
         public void Interact()
         {
             if (_messageTexts == null || _messageTexts.Length == 0) return;
@@ -36,11 +40,5 @@ namespace InteractableObjects
 
             _currentIndex = (_currentIndex + 1) % _messageTexts.Length;
         }
-
-        private void OnTriggerEnter2D(Collider2D other)
-            => _proximityTrigger.HandleEnter(other);
-
-        private void OnTriggerExit2D(Collider2D other)
-            => _proximityTrigger.HandleExit(other);
     }
 }

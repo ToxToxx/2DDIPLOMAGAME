@@ -4,12 +4,6 @@ using UnityEngine.UI;
 
 namespace MainMenu
 {
-    /// <summary>
-    ///  Анимация логотипа / кнопок главного меню (Hollow‑Knight‑style):
-    ///  • Fade‑in + scale‑in при запуске.
-    ///  • Бесконечное «дыхание» (bobbing).
-    ///  • HighlightPulse() — импульс масштаба + вспышка цвета без накопления масштаба.
-    /// </summary>
     public class MainScreenAnimation : MonoBehaviour
     {
         [Header("Fade & Scale‑In")]
@@ -46,21 +40,18 @@ namespace MainMenu
 
         private void Start() => PlayIntro();
 
-        /// <summary>
-        ///  Вызвать из EventTrigger PointerEnter (или из кода) для вспышки/импульса.
-        /// </summary>
+        private void OnDestroy() => _bobbingTween?.Kill();
+
+
         public void HighlightPulse()
         {
-            // Scale‑impulse (вверх → обратно)
             Sequence seq = DOTween.Sequence();
             seq.Append(transform.DOScale(_startScale * _pulseScale, _pulseDuration * 0.5f));
             seq.Append(transform.DOScale(_startScale, _pulseDuration * 0.5f));
 
-            // Лёгкий буст альфы CanvasGroup
             _canvasGroup.DOFade(Mathf.Clamp01(_canvasGroup.alpha + _pulseFadeBoost), _pulseDuration)
                         .SetLoops(2, LoopType.Yoyo);
 
-            // Белый флэш тексту / иконкам
             foreach (var g in _graphicsToFlash)
             {
                 if (g == null) continue;
@@ -89,7 +80,5 @@ namespace MainMenu
                                      .SetLoops(-1, LoopType.Yoyo);
         }
         #endregion
-
-        private void OnDestroy() => _bobbingTween?.Kill();
     }
 }

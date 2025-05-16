@@ -75,7 +75,7 @@ namespace Player
 
             Container.BindInterfacesAndSelfTo<PlayerAttackController>()
                      .AsSingle()
-                     .WithArguments(_enemyLayer)   // _attackStats приходит через контейнер
+                     .WithArguments(_enemyLayer)   
                      .NonLazy();
         }
 

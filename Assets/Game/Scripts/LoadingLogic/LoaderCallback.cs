@@ -1,9 +1,7 @@
-using System.Reflection;
 using UnityEngine;
 
 namespace Game
 {
-    [ObfuscationAttribute(Exclude = true)]
     public class LoaderCallback : MonoBehaviour
     {
         private bool _isFirstUpdate = true;

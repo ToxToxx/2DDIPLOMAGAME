@@ -4,11 +4,11 @@ namespace EnemyDummyLogic
 {
     public class DummyEnemy : MonoBehaviour, IDamageable
     {
-        [Header("Enemy Stats")]
-        public float _health = 3f;
-
         [Header("References")]
         [SerializeField] private DummyVisual _visual;
+
+        [Header("Enemy Stats")]
+        [SerializeField] private float _health = 3f;
 
         public void TakeDamage(float damage)
         {

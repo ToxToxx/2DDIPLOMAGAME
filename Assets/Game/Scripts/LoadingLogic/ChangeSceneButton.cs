@@ -1,10 +1,8 @@
-using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Game
 {
-    [ObfuscationAttribute(Exclude = true)]
     public class ChangeSceneButton : MonoBehaviour
     {
         [SerializeField] private Button _changeSceneButton;

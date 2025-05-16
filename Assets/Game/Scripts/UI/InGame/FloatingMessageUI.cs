@@ -16,6 +16,14 @@ namespace InGameUI
         [SerializeField] private float _typeSpeed = 0.03f;
 
         private CancellationTokenSource _cts;
+        private void Update()
+        {
+            if (Camera.main != null)
+            {
+                transform.LookAt(Camera.main.transform);
+                transform.Rotate(0, 180f, 0);
+            }
+        }
 
         public void Show(string text)
         {
@@ -25,6 +33,12 @@ namespace InGameUI
             _cts = new CancellationTokenSource();
 
             _ = AnimateAsync(text, _cts.Token); // запустить без ожидания
+        }
+
+        public void Hide()
+        {
+            CancelExisting();
+            gameObject.SetActive(false);
         }
 
         private async Task AnimateAsync(string text, CancellationToken token)
@@ -44,12 +58,6 @@ namespace InGameUI
             Hide();
         }
 
-        public void Hide()
-        {
-            CancelExisting();
-            gameObject.SetActive(false);
-        }
-
         private void CancelExisting()
         {
             if (_cts != null)
@@ -57,15 +65,6 @@ namespace InGameUI
                 _cts.Cancel();
                 _cts.Dispose();
                 _cts = null;
-            }
-        }
-
-        private void Update()
-        {
-            if (Camera.main != null)
-            {
-                transform.LookAt(Camera.main.transform);
-                transform.Rotate(0, 180f, 0);
             }
         }
     }

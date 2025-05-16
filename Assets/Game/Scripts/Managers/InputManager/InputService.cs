@@ -7,7 +7,6 @@ namespace InGameInput
 {
     public class InputService : IInitializable, ITickable, IDisposable, IInputService
     {
-        // public‑only via interface
         public Vector2 Movement { get; private set; }
         public bool JumpWasPressed { get; private set; }
         public bool JumpIsHeld { get; private set; }
@@ -19,7 +18,6 @@ namespace InGameInput
 
         private readonly PlayerInput _playerInput;
 
-        // cached actions
         private InputAction _move;
         private InputAction _jump;
         private InputAction _run;

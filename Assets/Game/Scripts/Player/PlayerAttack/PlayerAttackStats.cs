@@ -1,4 +1,3 @@
-// Assets/Game/Scripts/Player/Attack/PlayerAttackStats.cs
 using UnityEngine;
 
 namespace PlayerAttack

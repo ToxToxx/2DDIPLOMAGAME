@@ -1,10 +1,8 @@
-using System.Reflection;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Game
 {
-    [ObfuscationAttribute(Exclude = true)]
     public class Loader : MonoBehaviour
     {
         public enum Scene

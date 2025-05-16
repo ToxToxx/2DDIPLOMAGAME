@@ -1,8 +1,6 @@
-// Assets/Game/Scripts/Interactables/WellInteractable.cs
 using UnityEngine;
 using DG.Tweening;
 using PlayerInteractionLogic;
-using Player; // PlayerMarker
 using InGameUI;
 
 namespace InteractableObjects
@@ -32,7 +30,6 @@ namespace InteractableObjects
 
         private void Awake()
         {
-            // Инстанцируем материал визуала
             if (_visualRenderer == null)
             {
                 Debug.LogError("WellInteractable: Не назначен visualRenderer!", this);
@@ -40,11 +37,9 @@ namespace InteractableObjects
                 return;
             }
 
-            // Сделаем копию материала, чтобы не затрагивать другие объекты
             _matInstance = Instantiate(_visualRenderer.sharedMaterial);
             _visualRenderer.material = _matInstance;
 
-            // Подготовим триггер показа подсказки
             _proximityTrigger = new ProximityMessageTrigger(_floatingMessage, _proximityMessage);
         }
 
@@ -53,9 +48,14 @@ namespace InteractableObjects
             _floatingMessage?.Hide();
         }
 
+        private void OnTriggerEnter2D(Collider2D other)
+            => _proximityTrigger.HandleEnter(other);
+
+        private void OnTriggerExit2D(Collider2D other)
+            => _proximityTrigger.HandleExit(other);
+
         public void Interact()
         {
-            // Запускаем flash-анимацию шейдера
             _matInstance.SetColor(FlashColID, _flashColor);
             _matInstance.SetFloat(FlashAmtID, _startFlashAmount);
 
@@ -63,11 +63,5 @@ namespace InteractableObjects
                 .DOFloat(0f, FlashAmtID, _flashDuration)
                 .SetEase(Ease.OutQuad);
         }
-
-        private void OnTriggerEnter2D(Collider2D other)
-            => _proximityTrigger.HandleEnter(other);
-
-        private void OnTriggerExit2D(Collider2D other)
-            => _proximityTrigger.HandleExit(other);
     }
 }

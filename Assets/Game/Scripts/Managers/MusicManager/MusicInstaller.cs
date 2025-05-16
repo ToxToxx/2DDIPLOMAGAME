@@ -1,4 +1,3 @@
-// Assets/Game/Scripts/Audio/MusicInstaller.cs
 using UnityEngine;
 using Zenject;
 
@@ -16,13 +15,11 @@ namespace Audio
         {
             var src = GetComponent<AudioSource>();
 
-            // Делаем AudioSource single‑instance, чтобы другие сервисы могли запросить при желании
             Container.Bind<AudioSource>().FromInstance(src).AsSingle();
 
-            // Передаём настройки в сервис
             Container.BindInterfacesAndSelfTo<MusicPlayer>()
                      .AsSingle()
-                     .WithArguments(_track, _volume, _loop);   // AudioSource придёт из контейнера
+                     .WithArguments(_track, _volume, _loop);  
         }
     }
 }
