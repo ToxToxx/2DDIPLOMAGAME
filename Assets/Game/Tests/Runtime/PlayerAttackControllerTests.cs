@@ -97,7 +97,7 @@ namespace Tests.Runtime
             enemyObject.transform.position = _playerTransform.position + Vector3.right * 1.0f;
 
             // 3. Добавляем физику
-            enemyObject.AddComponent<BoxCollider2D>();       // обязательно!
+            enemyObject.AddComponent<BoxCollider2D>();       
             enemyObject.AddComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
 
             // 4. Добавляем DamageableMock
