@@ -27,7 +27,7 @@ namespace PlayerEvent
         public IObservable<Unit> OnLand => _onLand;
         public IObservable<Unit> OnWallSlideStart => _onWallSlideStart;
 
-        public void RaiseAttack() => _onAttack.OnNext(Unit.Default);
+        public virtual void RaiseAttack() => _onAttack.OnNext(Unit.Default);
         public void RaiseJump() => _onJump.OnNext(Unit.Default);
         public void RaiseDash() => _onDash.OnNext(Unit.Default);
         public void RaiseLand() => _onLand.OnNext(Unit.Default);
