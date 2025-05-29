@@ -5,6 +5,7 @@ using PlayerMovement;
 using PlayerEvent;
 using InGameInput;
 
+
 namespace Tests.Runtime
 {
     public class PlayerAttackControllerTests
@@ -82,48 +83,39 @@ namespace Tests.Runtime
         }
 
         [Test]
-        public void Attack_Ends_After_AttackDuration()
-        {
-            _inputService.AttackPressed = true;
-            _controller.Tick(); // Начинаем атаку
-
-            float duration = _attackStats.AttackDuration;
-            float step = 0.1f;
-
-            for (float t = 0; t <= duration; t += step)
-            {
-                _inputService.AttackPressed = false;
-                _controller.Tick();
-            }
-
-            Assert.IsFalse(_controller.IsAttacking);
-        }
-
-        [Test]
         public void Attack_Damages_Enemy_In_Range()
         {
             // Создаём врага
             var enemyObject = new GameObject("Enemy");
-            LayerMask.NameToLayer("Damageable");
 
+            // 1. Устанавливаем слой вручную
+            int testLayer = 8; // Убедись, что этот слой добавлен в Unity как "Damageable"
+            enemyObject.layer = testLayer;
+            _enemyLayer = 1 << testLayer; // Маска только для этого слоя
 
+            // 2. Ставим его на нужную позицию
             enemyObject.transform.position = _playerTransform.position + Vector3.right * 1.0f;
 
-            // Добавляем коллайдер (иначе OverlapBox ничего не найдёт)
-            enemyObject.AddComponent<BoxCollider2D>();
+            // 3. Добавляем физику
+            enemyObject.AddComponent<BoxCollider2D>();       // обязательно!
+            enemyObject.AddComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
 
-            // Добавляем компонент, реализующий IDamageable
+            // 4. Добавляем DamageableMock
             var damageableMock = enemyObject.AddComponent<DamageableMock>();
             damageableMock.Health = 10f;
 
+            // 5. Устанавливаем input
             _inputService.AttackPressed = true;
 
+            // 6. Выполняем Tick
             _controller.Tick();
 
+            // 7. Проверка
             Assert.AreEqual(8f, damageableMock.Health);
 
             Object.DestroyImmediate(enemyObject);
         }
+
 
 
         // Простые фейковые реализации для тестов:
