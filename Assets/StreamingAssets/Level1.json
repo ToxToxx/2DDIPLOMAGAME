@@ -1,11 +1,6 @@
 {
     "entries": [
       
-        {
-        "position": { "x": 0, "y": 0, "z": 0 },
-        "rotationZ": 0,
-        "prefabKeys": [ "Level1/Grid" ]
-      },
       {
         "position": { "x":  -12.73, "y": -8.01, "z": 1 },
         "rotationZ": 0,

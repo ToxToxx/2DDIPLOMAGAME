@@ -1,8 +1,6 @@
 using UnityEngine;
 using TMPro;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Collections;
 
 namespace InGameUI
 {
@@ -15,7 +13,8 @@ namespace InGameUI
         [SerializeField] private float _lifetime = 2f;
         [SerializeField] private float _typeSpeed = 0.03f;
 
-        private CancellationTokenSource _cts;
+        private Coroutine _animateCoroutine;
+
         private void Update()
         {
             if (Camera.main != null)
@@ -30,9 +29,7 @@ namespace InGameUI
             CancelExisting();
 
             gameObject.SetActive(true);
-            _cts = new CancellationTokenSource();
-
-            _ = AnimateAsync(text, _cts.Token); // запустить без ожидания
+            _animateCoroutine = StartCoroutine(AnimateCoroutine(text));
         }
 
         public void Hide()
@@ -41,30 +38,27 @@ namespace InGameUI
             gameObject.SetActive(false);
         }
 
-        private async Task AnimateAsync(string text, CancellationToken token)
+        private IEnumerator AnimateCoroutine(string text)
         {
             _textComponent.text = string.Empty;
 
             foreach (char c in text)
             {
-                if (token.IsCancellationRequested) return;
-
                 _textComponent.text += c;
-                await Task.Delay(TimeSpan.FromSeconds(_typeSpeed), token);
+                yield return new WaitForSeconds(_typeSpeed);
             }
 
-            await Task.Delay(TimeSpan.FromSeconds(_lifetime), token);
+            yield return new WaitForSeconds(_lifetime);
 
             Hide();
         }
 
         private void CancelExisting()
         {
-            if (_cts != null)
+            if (_animateCoroutine != null)
             {
-                _cts.Cancel();
-                _cts.Dispose();
-                _cts = null;
+                StopCoroutine(_animateCoroutine);
+                _animateCoroutine = null;
             }
         }
     }
