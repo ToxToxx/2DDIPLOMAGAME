@@ -38,6 +38,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 2719281997
+    locked: 0
   - name: InGameLayer
     uniqueID: 2523376133
     locked: 0
