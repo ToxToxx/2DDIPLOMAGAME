@@ -206,6 +206,7 @@ GameObject:
   - component: {fileID: 201391532}
   - component: {fileID: 201391531}
   - component: {fileID: 201391530}
+  - component: {fileID: 201391533}
   m_Layer: 0
   m_Name: EXITBUTTON
   m_TagString: Untagged
@@ -314,6 +315,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 201391528}
   m_CullTransparentMesh: 1
+--- !u!114 &201391533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 201391528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eabef695a9d112945a26fb0c6f27eacd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _changeSceneButton: {fileID: 201391530}
+  _targetScene: 0
 --- !u!4 &222494012 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7934220833097265957, guid: fbfddb86d2c9c9244b24c1edc44aa550, type: 3}
@@ -1040,19 +1055,48 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7430942939683339483, guid: 8b8b7f47de425504482b12208037f457, type: 3}
+      propertyPath: _monoInstallers.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7430942939683339483, guid: 8b8b7f47de425504482b12208037f457, type: 3}
       propertyPath: '_monoInstallers.Array.data[2]'
       value: 
       objectReference: {fileID: 1233334062}
+    - target: {fileID: 7430942939683339483, guid: 8b8b7f47de425504482b12208037f457, type: 3}
+      propertyPath: '_monoInstallers.Array.data[3]'
+      value: 
+      objectReference: {fileID: 7146265719356978786}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7057790307887523864, guid: 8b8b7f47de425504482b12208037f457, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7146265719356978786}
   m_SourcePrefab: {fileID: 100100000, guid: 8b8b7f47de425504482b12208037f457, type: 3}
 --- !u!20 &7146265719356978784 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 7217918315041355107, guid: 8b8b7f47de425504482b12208037f457, type: 3}
   m_PrefabInstance: {fileID: 7146265719356978783}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7146265719356978785 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7057790307887523864, guid: 8b8b7f47de425504482b12208037f457, type: 3}
+  m_PrefabInstance: {fileID: 7146265719356978783}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7146265719356978786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7146265719356978785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7268d685f49db494dab98575683a29bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pauseMenu: {fileID: 1061129805}
 --- !u!4 &8824747786599379313 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2443587748700972075, guid: 7a0507cb423987f40acc57154a7efd23, type: 3}

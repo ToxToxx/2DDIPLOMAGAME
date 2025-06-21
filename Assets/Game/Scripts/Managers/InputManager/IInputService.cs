@@ -14,6 +14,8 @@ namespace InGameInput
 
         bool InteractionWasPressed { get; }
         bool AttackWasPressed { get; }
+
+        bool PauseWasPressed { get; }
     }
 }
 

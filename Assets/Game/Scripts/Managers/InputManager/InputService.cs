@@ -16,6 +16,9 @@ namespace InGameInput
         public bool InteractionWasPressed { get; private set; }
         public bool AttackWasPressed { get; private set; }
 
+        public bool PauseWasPressed {  get; private set; }
+
+
         private readonly PlayerInput _playerInput;
 
         private InputAction _move;
@@ -24,6 +27,7 @@ namespace InGameInput
         private InputAction _dash;
         private InputAction _interact;
         private InputAction _attack;
+        private InputAction _pause;
 
         public InputService(PlayerInput playerInput) => _playerInput = playerInput;
 
@@ -35,6 +39,7 @@ namespace InGameInput
             _dash = _playerInput.actions["Dash"];
             _interact = _playerInput.actions["Interact"];
             _attack = _playerInput.actions["Attack"];
+            _pause = _playerInput.actions["Pause"];
         }
 
         public void Tick()
@@ -47,6 +52,7 @@ namespace InGameInput
             DashWasPressed = _dash.WasPressedThisFrame();
             InteractionWasPressed = _interact.WasPressedThisFrame();
             AttackWasPressed = _attack.WasPressedThisFrame();
+            PauseWasPressed = _pause.WasPressedThisFrame();
         }
 
         public void Dispose() { /* ничего освобождать не нужно */ }

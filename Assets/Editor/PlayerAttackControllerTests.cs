@@ -4,6 +4,7 @@ using PlayerAttack;
 using PlayerMovement;
 using PlayerEvent;
 using InGameInput;
+using UnityEngine.UIElements;
 
 
 namespace Tests.Runtime
@@ -138,6 +139,8 @@ namespace Tests.Runtime
             public bool DashWasPressed => throw new System.NotImplementedException();
 
             public bool InteractionWasPressed => throw new System.NotImplementedException();
+
+            public bool PauseWasPressed => throw new System.NotImplementedException();
         }
 
         private class FakePlayerEventBus : PlayerEventBus
