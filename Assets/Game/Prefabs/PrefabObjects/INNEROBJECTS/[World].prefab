@@ -49,6 +49,7 @@ MonoBehaviour:
   - {fileID: 2259357408517672866}
   - {fileID: 6555543581569160126}
   - {fileID: 0}
+  - {fileID: 8269769816315269178}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -353,7 +354,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 75
-    OrthographicSize: 5
+    OrthographicSize: 6
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -472,7 +473,7 @@ Camera:
   far clip plane: 1000
   field of view: 75
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -761,6 +762,7 @@ GameObject:
   - component: {fileID: 6852118886052549830}
   - component: {fileID: 5917355463825378626}
   - component: {fileID: 4367843467304410956}
+  - component: {fileID: 8269769816315269178}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -829,3 +831,16 @@ MonoBehaviour:
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
   m_ScrollDeltaPerTick: 6
+--- !u!114 &8269769816315269178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7057790307887523864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7268d685f49db494dab98575683a29bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pauseMenu: {fileID: 0}
